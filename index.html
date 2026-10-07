@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mantenimiento autónomo | Multi</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAE+UlEQVR42u1aPWxbVRg93733PTu0/k1BCFonIJCYkJg6uIGkokioqmBhYkNIsLDQraqdEKeABGrSIjYEhRRGJNoAMwNCoC5sgAoFRGxEmzR/kPb53XsY0pQqJLbz4p9Y8l1s6dl653z33O/3ys8YQDcvhS5fPQI9Aj0CPQKdXabOcwFMJ0gScITjDgkIGYTVBUAAthG+CLTBHtF9dARdJAIiYIDc/sRLryrXTvSwN6rBj79Wv77Eyi8Kca37YN32CSihDdTggftOHO+IuG/OL1z/+NPrr0/hz4rWSVgbRUISVsMw1CREpF3iByAisWz63ldeSBx76o/nXuSlS55K0dkIh1hgjJBoE3789xqSod0zuH/gy09+yz/jfrosqg/OdY8bFRHPIAzj+7L3vPf2DS0C14VxwBhamxk6eNfRp61bgtZdGMgIkKnnn7WgdGMkFiUQiT/6iHgp2HDDaeyGHRABoDNJSSQJ14USWqfhFNHFBCgAHWwvne4R6BHYVi4ECAGufdSMNXL7i+wqAuKkAUxyRxFRrYo2SkmnCTgniIff/3Dl4FGwoYJGGe2W5+TIkcE3C+Lp9iTgpmZirmRlRb77RqBZJ1uhwFhck8dGBo6/7Hmau0RCIlqrdN16mDGxq/Ny6NjgF9N+Yi/IdtU/dc8AUaMeBUChGGNXr0n+iYEL5/zEXjonqn3ObadvEk9Xq3+p/HDu4nk/k2oz+obcaC3z+2KDOZUfyc1M++lk+9FH3wGC4mkbzOPQ8ODM+U6hj05AfB1Ur6r88MDMtJdO0nYGfTQJkb4KgznJD+dmpv1Uks6J7lhKoratHc+EwZxaVw5cx2wfiYCvq2vKuXjr1CIaerL9BEhf2WBODR0e2MmpJeCcE7E3g/YS8IwNrsmh4cELH0VXDgFnodTvhbeWvvoWAGtGyaYRoC9h9arOj+RmznuRlUPAhtS68sY7KxNF7Xvt2AEK4SsXzKuhwwc+n/ZTiainlrQhjamcOrtwohBT6fUUna0lIFqHwVUZGsldvOUxI9mesE6MKZemlk4W4n4GTtaRSysJKO3CJfX4k7mZHdiehHXQunLq7HJxNGaysGjivGdrQErAG3zw4f2ffegnE4joMUnrYHR54sziyYJvMs6yucMqVaMUIAP/wP1eOonI/t46MbpcmlwqFH2ThRVpdqVTb8hXrTLadIOEdTS6UppcKo7FdJbNtn1jblQkEnrQORhdHj+9UBz1Tda5Vo05W5DGEHBWtC6XJpdHX4ubflgIW1Ukq6ajp7XUulyaWiyOxUwWlmALS/ymEiBhrRhdmZhaLhbjJkvb8gG5aqpyHIyeHZ9cLBQ900+Lltq+mQRIwlpqPVuaWhod69P9rVZOUwnc9jml08vF0ZjJtM7nROgLkWHIrVu2BAVQxpTH13xO1jVoe+sYhmzkx2uBKIxy1YDwjDGmRiBYezQ7fnpxdCxu+q1lI7HWgZJOiDHScE0u+7KUTTrGNXqjFPj2yuyfE2ccsWk8I6k8c/PyldX3P4jrjDTmc0iKyPV3z6089ADDsIEmJKFUuLKi/lmFqA3vkJoXX4UIQiwSGoDaLPUlCIivMtzOlRwBQ/xNhI3/QyAaeyFqg43qSUh5xtwtEFCEsuk2EWTVbfPYi9EpiNwxGqnrKEBr/7/D9brTDgjWRjRbqiNaScIt7v/sglxodze2egR6BDasfwGLcFBNgk12dwAAAABJRU5ErkJggg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070708; --surface:#141417; --surface2:#1C1C20; --line:#2C2C31; --line2:#3A3A41;
+  --text:#F4F4F5; --muted:#A1A1AA; --dim:#71717A;
+  --red:#DD001F; --red-deep:#7A0011; --red-soft:rgba(221,0,31,.14);
+  --head:'Barlow Semi Condensed','Arial Narrow',Arial,sans-serif;
+  --body:'Barlow','Segoe UI',Roboto,Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid #fff;outline-offset:2px}
+a{color:inherit}
+
+/* ---------- encabezado ---------- */
+.top{color:#fff;background:linear-gradient(115deg,#000 0%,#160003 42%,#5C000D 72%,var(--red) 100%);border-bottom:1px solid #000}
+.top-in{max-width:1080px;margin:0 auto;padding:18px 20px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none;min-width:0}
+.logo img{height:46px;width:46px;display:block;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.wordmark{font-family:var(--head);font-weight:800;font-size:30px;letter-spacing:.02em;line-height:1;background:#fff;color:var(--red);padding:4px 10px 3px;border-radius:3px}
+.titles h1{font-family:var(--head);font-weight:700;font-size:22px;margin:0;line-height:1.1}
+.titles p{margin:2px 0 0;color:rgba(255,255,255,.72);font-size:14px}
+.conn{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:#fff;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.conn i{width:8px;height:8px;border-radius:50%;background:#fff;display:inline-block}
+.conn.off i{background:transparent;border:1.5px solid #fff}
+.conn.pend{background:#fff;color:#000;border-color:#fff;font-weight:600}
+.conn.pend i{background:var(--red)}
+.conn button{all:unset;cursor:pointer;text-decoration:underline}
+
+.crumbs{max-width:1080px;margin:0 auto;padding:14px 20px 0;display:flex;gap:6px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.crumbs{align-items:center;gap:12px}
+.crumbs .trail{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.crumbs a{text-decoration:none;color:var(--muted)}
+.crumbs a.back{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#000;font-weight:700;font-size:15px;padding:9px 16px 9px 12px;min-height:42px;border-radius:6px}
+.crumbs a.back svg{width:16px;height:16px}
+.crumbs a.back:hover{background:#E4E4E7;color:#000}
+body.form-mode .crumbs a.back{background:#18181B;color:#fff}
+body.form-mode .crumbs a.back:hover{background:#000;color:#fff}
+.crumbs a:hover{color:#fff}
+.crumbs span.sep{color:var(--dim)}
+.crumbs b{color:#fff;font-weight:600}
+
+main{max-width:1080px;margin:0 auto;padding:10px 20px 120px}
+.lead{font-family:var(--head);font-weight:700;font-size:clamp(28px,5vw,40px);margin:18px 0 4px;line-height:1.05}
+.sub{color:var(--muted);margin:0 0 22px;max-width:62ch}
+
+/* ---------- mosaicos de navegación ---------- */
+.tiles{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.tile{position:relative;display:block;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 20px 18px;text-decoration:none;overflow:hidden;transition:border-color .15s, background .15s}
+.tile:hover{border-color:var(--red);background:var(--surface2)}
+.tile .big{font-family:var(--head);font-weight:800;font-size:44px;line-height:.95;letter-spacing:-.01em;display:block;overflow-wrap:normal;word-break:normal;hyphens:none}
+.tile .code{position:absolute;right:14px;top:10px;font-family:var(--head);font-weight:800;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.14);pointer-events:none}
+.tile .meta{display:block;margin-top:10px;color:var(--muted);font-size:14px}
+.tile .meta b{color:#fff;font-weight:600}
+.tile .bar{display:block;height:3px;background:var(--line);margin-top:14px;border-radius:2px;overflow:hidden}
+.tile .bar i{display:block;height:100%;background:var(--red)}
+.tile.country{padding:28px 24px 24px;min-height:180px;background:linear-gradient(160deg,var(--surface) 55%,#2a0007 100%)}
+.tiles.countries{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.tile.country .big{font-size:clamp(38px,5.4vw,60px)}
+.tile.country .flag{position:absolute;right:20px;top:20px;width:112px;height:auto;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.22),0 6px 18px rgba(0,0,0,.45)}
+.tile.country .big{padding-right:124px}
+.lead.with-flag{display:flex;align-items:center;gap:14px}
+.flag-sm{width:56px;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.22)}
+.tile.off{opacity:.55;pointer-events:none}
+.tile.off .meta{color:var(--dim)}
+.tile .last{display:flex;justify-content:space-between;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.tile .last b{color:#fff}
+.tile.line .big{font-size:48px}
+
+/* ---------- formulario ---------- */
+.ut{font-size:13px;color:var(--muted);margin-top:4px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px}
+.grid{display:grid;gap:14px 16px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid .full{grid-column:1/-1}
+label.f{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:500}
+label.f em,.hdr em{color:var(--red);font-style:normal}
+.inp{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:4px;padding:10px 12px;min-height:44px;color:#fff}
+.inp:focus{border-color:#fff;outline:none}
+textarea.inp{min-height:72px;resize:vertical}
+select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+.inp.bad{border-color:var(--red)!important;box-shadow:0 0 0 1px var(--red)!important}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:4px;overflow:hidden;flex-wrap:wrap}
+.seg button{background:transparent;border:0;border-right:1px solid var(--line2);padding:9px 14px;min-height:42px;color:var(--muted);font-weight:600}
+.seg button:last-child{border-right:0}
+.seg button.on{background:#fff;color:#000}
+.seg.bad{box-shadow:0 0 0 2px var(--red)}
+.hide{display:none!important}
+
+/* hoja blanca: cuando se entra al formulario todo cambia a papel */
+body.form-mode{background:#E6E6E9;color:#18181B}
+body.form-mode .crumbs,body.form-mode .crumbs a{color:#5B5B63}
+body.form-mode .crumbs a:hover{color:#000}
+body.form-mode .crumbs b{color:#000}
+.sheet{background:#fff;color:#18181B;border-top:6px solid var(--red);border-radius:4px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.sheet-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;padding:20px 22px 16px;border-bottom:2px solid #18181B}
+.doc-type{font-size:13px;color:var(--red);font-weight:600}
+.sheet-head h2{font-family:var(--head);font-weight:800;font-size:clamp(30px,5vw,42px);margin:2px 0 0;line-height:1}
+.sheet .ut{color:#5B5B63}
+.doc-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:13px;color:#5B5B63}
+.sheet label.f{color:#3F3F46}
+.sheet .inp{background:#fff;color:#18181B;border:1px solid #C4C4CC;min-height:40px;padding:8px 10px}
+.sheet .inp:focus{border-color:#18181B;box-shadow:0 0 0 1px #18181B}
+.sheet .inp::placeholder{color:#A1A1AA}
+.sheet .seg{border-color:#C4C4CC}
+.sheet .seg button{color:#52525B;border-right-color:#C4C4CC;min-height:38px;padding:7px 12px}
+.sheet .seg button.on{background:#18181B;color:#fff}
+
+table.hdr{width:100%;border-collapse:collapse}
+table.hdr th,table.hdr td{border-bottom:1px solid #D4D4D8;padding:10px 14px;text-align:left;vertical-align:middle}
+table.hdr th{background:#F4F4F5;font-weight:600;font-size:13px;color:#3F3F46;width:15%;white-space:nowrap}
+table.hdr td{width:35%}
+table.hdr td.fixed{font-weight:600;color:#18181B}
+
+.tbl-wrap{overflow-x:auto}
+table.acts{width:100%;border-collapse:collapse;font-size:15px}
+table.acts thead th{background:#18181B;color:#fff;text-align:left;font-weight:600;font-size:13px;padding:10px 12px;white-space:nowrap}
+table.acts td{border-bottom:1px solid #E4E4E7;padding:8px 12px;vertical-align:middle}
+tr.secrow th{background:#FBE5E8;color:#7A0011;text-align:left;font-family:var(--head);font-size:18px;font-weight:700;padding:9px 12px;border-bottom:1px solid #F2BCC4}
+tr.secrow{scroll-margin-top:12px}
+tr.secrow .step{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#7A0011;color:#fff;font-size:14px;margin-right:10px;vertical-align:2px}
+.flow{padding:14px 22px;border-bottom:1px solid #D4D4D8;background:#FAFAFA}
+.flow-t{display:block;font-size:13px;font-weight:600;color:#3F3F46;margin-bottom:8px}
+.flow-steps{display:flex;align-items:center;gap:4px;overflow-x:auto;padding-bottom:4px}
+.fstep{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:#fff;border:1px solid #C4C4CC;border-radius:999px;padding:5px 12px 5px 5px;font-size:13px;font-weight:600;color:#3F3F46}
+.fstep b{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#E4E4E7;color:#18181B;font-size:12px}
+.fstep:hover{border-color:#18181B}
+.fstep.full{border-color:#16A34A;color:#15803D}
+.fstep.full b{background:#16A34A;color:#fff}
+.fstep.has-no{border-color:var(--red);color:var(--red)}
+.fstep.has-no b{background:var(--red);color:#fff}
+.flow-steps .arr{color:#A1A1AA;font-size:18px;flex:none}
+tr.secrow .cnt{float:right;font-family:var(--body);font-size:13px;font-weight:600;color:#7A0011}
+.nf{display:inline-block;background:var(--red);color:#fff;font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px;margin-left:8px}
+.c-no{width:72px;color:#71717A;font-size:13px;font-variant-numeric:tabular-nums}
+.c-eq{width:15%;color:#3F3F46;font-size:14px}
+.c-fq{width:112px;font-size:13px;color:#52525B}
+.c-res{width:250px}
+.c-obs{width:19%}
+.mini{display:none}
+tr.item.no>td{background:#FFF1F3}
+tr.item.missing>td{background:#FFE1E6}
+tr.item.missing>td:first-child{box-shadow:inset 4px 0 0 var(--red)}
+.ans{display:flex;gap:6px}
+.ans button{flex:1;background:#fff;border:2px solid currentColor;border-radius:6px;min-height:44px;padding:6px 10px;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap}
+.ans button.c{color:#15803D}
+.ans button.n{color:#DD001F}
+.ans button.c:not(.on):hover{background:#ECF8F0}
+.ans button.n:not(.on):hover{background:#FDECEE}
+.ans button.c.on{background:#16A34A;border-color:#16A34A;color:#fff}
+.ans button.n.on{background:var(--red);border-color:var(--red);color:#fff}
+tr.item.ok>td{background:#ECF8F0}
+.ans svg{width:17px;height:17px;flex:none}
+
+tr.hzrow{display:none}
+tr.item.no+tr.hzrow{display:table-row}
+tr.hzrow>td{padding:0 12px 14px;background:#FFF1F3;border-bottom:1px solid #E4E4E7}
+.hz{border:1px solid #F2BCC4;border-left:4px solid var(--red);background:#fff;border-radius:4px;padding:14px}
+.hz-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.hz-head h4{margin:0;font-family:var(--head);font-size:18px;font-weight:700}
+.hz-auto{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:13px;color:#52525B}
+.hz-auto b{color:#18181B;font-weight:600}
+.hz-auto b.st{color:var(--red)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid #C4C4CC;background:#fff;border-radius:4px;padding:7px 14px;min-height:40px;font-weight:600;color:#52525B}
+.chip.on{background:#18181B;color:#fff;border-color:#18181B}
+.chips.bad .chip{border-color:var(--red)}
+[data-hpick] .chip.on{background:var(--red);border-color:var(--red);color:#fff}
+.follow{margin-top:14px;border:1px dashed #C4C4CC;border-radius:4px;padding:9px 12px;font-size:13px;color:#52525B}
+.obs-gen{padding:16px 22px 22px;border-top:2px solid #18181B}
+
+/* barra inferior */
+.dock{position:fixed;left:0;right:0;bottom:0;background:rgba(7,7,8,.96);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:20;backdrop-filter:blur(6px)}
+.dock-in{max-width:1080px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
+.prog{flex:1;min-width:0}
+.prog .nums{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:6px}
+.prog .nums b{color:#fff}
+.prog .track{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog .track i{display:block;height:100%;width:0;background:var(--red);transition:width .25s}
+.btn{border:0;border-radius:4px;padding:12px 20px;min-height:46px;font-weight:600;font-family:var(--head);font-size:18px;letter-spacing:.01em}
+.btn.pri{background:var(--red);color:#fff}
+.btn.pri:hover{background:#f00025}
+.btn.sec{background:transparent;border:1px solid var(--line2);color:#fff}
+.btn:disabled{opacity:.5;cursor:wait}
+
+body.form-mode .dock{background:rgba(255,255,255,.97);border-top-color:#D4D4D8}
+body.form-mode .prog .nums{color:#52525B}
+body.form-mode .prog .nums b{color:#18181B}
+body.form-mode .prog .nums .k-ok,body.form-mode .prog .nums .k-ok b{color:#15803D}
+body.form-mode .prog .nums .k-no,body.form-mode .prog .nums .k-no b{color:#DD001F}
+body.form-mode .prog .track{background:#E4E4E7}
+
+/* resultado */
+.done{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;margin-top:18px}
+.score{font-family:var(--head);font-weight:800;font-size:clamp(72px,14vw,120px);line-height:.9}
+.score small{font-size:.35em;color:var(--muted);font-weight:600}
+.status-msg{border-left:4px solid #fff;padding:10px 14px;background:var(--surface2);margin:14px 0;font-size:15px}
+.status-msg.warn{border-color:var(--red)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px;margin-top:10px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.hz-list{list-style:none;margin:0;padding:0}
+.hz-list li{border-top:1px solid var(--line);padding:12px 0}
+.hz-list li:first-child{border-top:0}
+.hz-list .t{font-weight:600}
+.hz-list .m{font-size:13px;color:var(--muted)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.empty{color:var(--muted);padding:20px 0}
+
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#fff;color:#000;padding:10px 16px;border-radius:4px;font-weight:600;z-index:50;box-shadow:0 6px 24px rgba(0,0,0,.5);max-width:90vw}
+body.form-mode .toast{background:#18181B;color:#fff}
+
+/* tablet */
+@media (min-width:761px) and (max-width:1100px){
+  main{padding-left:16px;padding-right:16px}
+  .c-eq{display:none}
+  .mini{display:block;font-size:12px;color:#71717A;margin-bottom:2px}
+  .c-no{width:62px}
+  .c-res{width:250px}
+  .c-obs{width:24%}
+  table.hdr th{width:auto}
+  .ans button{min-height:48px}
+}
+@media (max-width:760px){
+  .crumbs .trail{display:none}
+  table.hdr,table.hdr tbody,table.hdr tr{display:block}
+  table.hdr th,table.hdr td{display:block;width:auto;border:0}
+  table.hdr th{padding:10px 14px 4px;background:transparent}
+  table.hdr td{padding:0 14px 10px;border-bottom:1px solid #E4E4E7}
+  table.acts thead{display:none}
+  table.acts,table.acts tbody{display:block}
+  tr.secrow,tr.secrow th{display:block}
+  tr.item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 10px;padding:12px;border-bottom:1px solid #E4E4E7}
+  tr.item>td{border:0;padding:0;background:transparent!important;box-shadow:none!important}
+  tr.item.no{background:#FFF1F3}
+  tr.item.ok{background:#ECF8F0}
+  tr.item.missing{background:#FFE1E6;box-shadow:inset 4px 0 0 var(--red)}
+  .c-no{width:auto;padding-top:2px!important}
+  .c-eq,.c-fq{display:none}
+  .c-res,.c-obs{grid-column:1/-1;width:auto}
+  .mini{display:block;font-size:12px;color:#71717A;margin-bottom:2px}
+  .ans{width:100%}
+  .ans button{min-height:50px;font-size:16px}
+  tr.item.no+tr.hzrow{display:block}
+  tr.hzrow>td{display:block;padding:0 10px 12px}
+}
+@media (max-width:640px){
+  .top-in{padding:14px 16px 12px}
+  .logo img{height:38px;width:38px}
+  .tile.country .flag{width:76px;right:16px;top:16px}
+  .tile.country .big{padding-right:0;margin-top:56px}
+  .flag-sm{width:42px}
+  .titles h1{font-size:19px}
+  .titles p{display:none}
+  .conn{margin-left:0}
+  main,.crumbs{padding-left:14px;padding-right:14px}
+  body.form-mode main{padding-left:8px;padding-right:8px}
+  .sheet-head{padding:16px 14px 12px}
+  .doc-meta{align-items:flex-start}
+  .obs-gen{padding:14px}
+  .flow{padding:12px 14px}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .hz{padding:12px}
+  .done{grid-template-columns:1fr}
+  .dock-in{padding:10px 14px;gap:10px}
+  .btn{padding:12px 14px;font-size:17px}
+  .tile.line .big{font-size:40px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="#/">
+      <span id="logoSlot"></span>
+      <span class="titles"><h1>Mantenimiento autónomo</h1><p>Checklist de operador por línea</p></span>
+    </a>
+    <div class="conn" id="conn"><i></i><span>Verificando conexión…</span></div>
+  </div>
+</header>
+<nav class="crumbs" id="crumbs" aria-label="Ruta"></nav>
+<main id="view"></main>
+<div id="dockSlot"></div>
+
+<script id="data" type="application/json">{"633":[{"name":"Desbobinador","items":[{"c":"Desbobinador","d":"Inspección de válvulas hidráulicas","f":["D"]},{"c":"Desbobinador","d":"Inspección de central hidráulica y bomba","f":["D"]},{"c":"Desbobinador","d":"Inspección de la conexión paneles eléctricos","f":["D"]},{"c":"Desbobinador","d":"Inspección de mandril expansivos engranaje de rotación","f":["D"]},{"c":"Desbobinador","d":"Inspección de fugas hidráulicas","f":["D"]},{"c":"Desbobinador","d":"Limpieza general","f":["D"]},{"c":"Desbobinador","d":"Engrase general mamparo, guías deslizamiento","f":["S"]},{"c":"Desbobinador","d":"Nivelación de aceite central hidráulica desbobinador aceite hidráulico ISO 46","f":["S"]},{"c":"Desbobinador","d":"Verificación de apriete de tornillería en aspas y mandriles","f":["S"]}]},{"name":"Empalmadora","items":[{"c":"Empalmadora","d":"Limpieza general","f":["D"]},{"c":"Empalmadora","d":"Inspección de mordaza de cobre, cuchillas de corte, niveladores","f":["S"]},{"c":"Empalmadora","d":"Inspección de funcionamiento","f":["S"]}]},{"name":"Acumulador","items":[{"c":"Acumulador","d":"Limpieza general (Eliminar cartones y laminas atoradas)","f":["D"]},{"c":"Acumulador","d":"Limpieza de grasa excedente de polvo y grasa","f":["D"]},{"c":"Acumulador","d":"Inspección de fugas de mangueras neumática","f":["D"]},{"c":"Acumulador","d":"Inspección ajuste engrase de rodamientos de rodos de pinch-roll","f":["S"]},{"c":"Acumulador","d":"Sopleteado de cilindros neumáticos","f":["S"]},{"c":"Acumulador","d":"Apretar acoples motores engranes de pinch-roll mesa","f":["S"]},{"c":"Acumulador","d":"Apretar tornillos de rodillos en la parte frontal y trasera de acumulador","f":["S"]},{"c":"Acumulador","d":"Inspección y nivelación de aceite VG 150 de caja reductora de motor DC","f":["S"]},{"c":"Acumulador","d":"Engrase general acumulador","f":["S"]},{"c":"Acumulador","d":"Inspección de platinas de cobre","f":["S"]}]},{"name":"Molino","items":[{"c":"Molino","d":"Limpieza general bancada completa formación y calibración","f":["D"]},{"c":"Molino","d":"Limpieza completa de zanja eliminación de wipe y lodo","f":["D"]},{"c":"Molino","d":"Limpieza general cámaras de enfriamiento 1 y 2 eliminación excedente de zinc y lodo","f":["D"]},{"c":"Molino","d":"Limpieza de bomba hidráulica de molino","f":["D"]},{"c":"Molino","d":"Inspección de tornillos de válvulas hidráulicas","f":["D"]},{"c":"Molino","d":"Limpieza de pistola de remetalizado","f":["D"]},{"c":"Molino","d":"Inspección de funcionamiento de pistola de remetalizado","f":["D"]},{"c":"Molino","d":"Limpieza de tornillos encoder de largo tubería","f":["D"]},{"c":"Molino","d":"Limpieza de cilindro neumático y zanja de movimiento de torres","f":["D"]},{"c":"Molino","d":"Limpieza de torres de soldadura","f":["D"]},{"c":"Molino","d":"Inspección y ajuste de torres","f":["D"]},{"c":"Molino","d":"Inspección de ejes cardanes de bancadas","f":["S"]},{"c":"Molino","d":"Inspección de rodamientos en torre de bancada de calibración","f":["S"]},{"c":"Molino","d":"Inspección de apriete en tornillos de válvulas hidráulicas","f":["S"]},{"c":"Molino","d":"Inspección apriete acoples cajas reductoras Inspección de fugas","f":["S"]},{"c":"Molino","d":"Engrase general de molino","f":["S"]},{"c":"Molino","d":"Inspección de tornillos encoder de largo tubería","f":["S"]},{"c":"Molino","d":"Inspección de tubería de soluble","f":["S"]},{"c":"Molino","d":"Inspección de torres de cámaras de enfriamiento","f":["S"]},{"c":"Molino","d":"Limpieza de torres de portaburiles rectificado de tornillos sin fin","f":["S"]},{"c":"Molino","d":"Limpieza de cabezas turcas","f":["S"]}]},{"name":"Soldadura (Thermatool)","items":[{"c":"Thermatool","d":"Inspección funcionamiento inductores serie y paralelo","f":["D"]},{"c":"Thermatool","d":"Inspección apriete de tornillos de panel de potencia","f":["S"]},{"c":"Thermatool","d":"Inspección de apriete de tornillos de generador","f":["S"]},{"c":"Thermatool","d":"Inspección de faja de taco generado","f":["S"]},{"c":"Thermatool","d":"Inspección racores mangueras fugas de agua","f":["S"]}]},{"name":"Remetalizadora","items":[{"c":"Remetalizadora","d":"Inspección y calibración de cañón de remetalizado","f":["D"]}]},{"name":"Tren de corte","items":[{"c":"Tren de corte","d":"Inspección de todas las mangueras asociadas al sistema de secado","f":["D"]},{"c":"Tren de corte","d":"Limpieza general de virutas y grasas","f":["D"]},{"c":"Tren de corte","d":"Limpieza general zanjas","f":["D"]},{"c":"Tren de corte","d":"Inspección de fugas en central hidráulica","f":["D"]},{"c":"Tren de corte","d":"Inspección de apriete sensores de proximidad","f":["D"]},{"c":"Tren de corte","d":"Limpieza de sensores de proximidad","f":["D"]},{"c":"Tren de corte","d":"Verificar rodamientos guía y tracción","f":["S"]},{"c":"Tren de corte","d":"Engrase general tren de corte","f":["S"]},{"c":"Tren de corte","d":"Inspección y apriete de mangueras hidráulicas","f":["S"]},{"c":"Tren de corte","d":"Inspección de rodillos de carga y contraste de tren de corte","f":["S"]},{"c":"Tren de corte","d":"Inspección y calibración de faja tracción de tren de corte","f":["S"]},{"c":"Tren de corte","d":"Apretar acople motor tren de corte","f":["S"]},{"c":"Tren de corte","d":"Apretar toda la tornillería","f":["S"]},{"c":"Tren de corte","d":"Inspección de bases para mordazas","f":["S"]}]},{"name":"Vía de rodillos","items":[{"c":"Vía de rodillos","d":"Limpieza general de vía de rodillos","f":["D"]},{"c":"Vía de rodillos","d":"Limpieza general de zanja eliminación de lodo","f":["D"]},{"c":"Vía de rodillos","d":"Limpieza externa de central hidráulica vía de rodillos","f":["D"]},{"c":"Vía de rodillos","d":"Inspección de fugas en central hidráulica vía de rodillos","f":["D"]},{"c":"Vía de rodillos","d":"Apriete de tornillería de chumaceras y rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Apriete alineación vía rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Engrase general vía rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Inspección de ejes y sistema de tracción","f":["S"]},{"c":"Vía de rodillos","d":"Inspección de base y sensor de botador de tubo","f":["S"]},{"c":"Vía de rodillos","d":"Apriete de acoples de motores","f":["S"]}]}],"382":[{"name":"Desbobinador","items":[{"c":"Desbobinador","d":"Limpieza del área","f":["D","S"]},{"c":"Desbobinador","d":"Verificar que no existan fugas de aire en sistema neumático","f":["D","S"]},{"c":"Desbobinador","d":"Limpieza externa de central hidráulica","f":["D","S"]},{"c":"Desbobinador","d":"Engrase general mamparo, guías deslizamiento","f":["S"]},{"c":"Desbobinador","d":"Engrase general a desbobinadora por los puntos de engrasadoras instalados","f":["S"]},{"c":"Desbobinador","d":"Verificación de apriete de tornillería en aspas y mandriles","f":["S"]}]},{"name":"Empalmadora","items":[{"c":"Empalmadora","d":"Limpieza general del equipo","f":["D","S"]},{"c":"Empalmadora","d":"Verificar el buen estado de sensores","f":["D","S"]},{"c":"Empalmadora","d":"Inspección de mordaza, cuchillas de corte, niveladores","f":["S"]},{"c":"Empalmadora","d":"Inspección de funcionamiento del movimiento de porta soplete","f":["S"]},{"c":"Empalmadora","d":"Inspección de fugas neumáticas","f":["S"]}]},{"name":"Acumulador","items":[{"c":"Acumulador","d":"Limpieza exterior de panel operativo","f":["D"]},{"c":"Acumulador","d":"Limpieza del área del acumulador","f":["D","S"]},{"c":"Acumulador","d":"Inspección de funcionamiento de rodamientos de rodos de pinch-roll","f":["S"]},{"c":"Acumulador","d":"Sopleteado de cilindros neumáticos","f":["S"]},{"c":"Acumulador","d":"Limpieza de los rodos en general (En parada)","f":["S"]},{"c":"Acumulador","d":"Apretar tornillos de rodillos en la parte frontal y trasera de acumulador (En parada)","f":["S"]},{"c":"Acumulador","d":"Engrase general acumulador (En parada)","f":["S"]},{"c":"Vástago guía","d":"Limpiar los tornillos de las barras de deslizamiento (en parada)","f":["D","S"]},{"c":"Motorización cesto de carga","d":"Limpieza general de la máquina, retirando virutas y suciedad en las juntas de transmisión","f":["D","S"]}]},{"name":"Molino","items":[{"c":"Molino","d":"Limpieza externa de paneles de operación","f":["D","S"]},{"c":"Molino","d":"Limpieza externa a túnel de enfriamiento","f":["D","S"]},{"c":"Molino","d":"Inspección de funcionamiento de rodos moldeadores","f":["D"]},{"c":"Molino","d":"Inspeccionar estado físico de mangueras de lubricación y enfriamiento","f":["D","S"]},{"c":"Molino","d":"Inspección de funcionamiento rodos","f":["S"]},{"c":"Molino","d":"Inspección de funcionamiento de bancadas","f":["S"]},{"c":"Molino","d":"Inspección de fugas en cajas reductoras","f":["S"]},{"c":"Molino","d":"Engrase general de molino, torres y puntos de engrase","f":["S"]},{"c":"Molino","d":"Inspección de tornillos encoder de largo tubería","f":["S"]},{"c":"Molino","d":"Inspección de tubería de soluble, que no exista fugas o accesorios en mal estado","f":["S"]},{"c":"Molino","d":"Inspección en cámara de enfriamiento","f":["S"]},{"c":"Molino","d":"Limpieza de cabezas turcas, Engrase","f":["S"]}]},{"name":"Soldadura","items":[{"c":"Soldadura","d":"Limpieza externa de túnel de enfriamiento","f":["D","S"]},{"c":"Soldadura","d":"Limpieza externa a panel de operación","f":["D","S"]},{"c":"Soldadura","d":"Limpieza de torres de porta buriles","f":["S"]},{"c":"Soldadura","d":"Limpieza de tornillos sin fin","f":["S"]},{"c":"Soldadura","d":"Inspección de mangueras de enfriamiento","f":["S"]},{"c":"Soldadura","d":"Inspección de guías de deslizamiento","f":["S"]},{"c":"Soldadura","d":"Lubricación en rebarbado","f":["S"]}]},{"name":"Remetalizadora","items":[{"c":"Remetalizadora","d":"Inspección y calibración de cañón de remetalizado","f":["D","S"]}]},{"name":"Tren de corte","items":[{"c":"Tren de corte","d":"Inspección de todas las mangueras asociadas al sistema de secado","f":["D"]},{"c":"Tren de corte","d":"Limpieza del área","f":["D","S"]},{"c":"Tren de corte","d":"Inspección de mangueras de lubricación","f":["D"]},{"c":"Tren de corte","d":"Inspección de mangueras de enfriamiento","f":["D"]},{"c":"Tren de corte","d":"Inspeccionar tornillería, que no haya alguna floja","f":["D"]},{"c":"Tren de corte","d":"Engrase general tren de corte","f":["S"]},{"c":"Tren de corte","d":"Inspección y apriete de mangueras hidráulicas","f":["S"]},{"c":"Tren de corte","d":"Limpieza externa central hidráulica","f":["S"]},{"c":"Tren de corte","d":"Inspeccionar toda la tornillería","f":["S"]},{"c":"Tren de corte","d":"Inspección bases de mordazas externo","f":["S"]}]},{"name":"Vía de rodillos","items":[{"c":"Vía de rodillos","d":"Limpieza del área, eliminar desperdicios","f":["D"]},{"c":"Vía de rodillos","d":"Verificar el funcionamiento del sistema de rechazo","f":["D","S"]},{"c":"Vía de rodillos","d":"Inspección de tornillería de chumaceras y rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Engrase general vía rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Inspección de ejes y sistema de tracción","f":["S"]},{"c":"Vía de rodillos","d":"Inspección de base y sensor de botador de tubo","f":["S"]}]},{"name":"Empacadora","items":[{"c":"Empacadora","d":"Lubricación en puntos accesibles","f":["S"]}]}],"765":[{"name":"Desbobinador","items":[{"c":"Desbobinador","d":"Limpieza de Central hidráulica, Inspección de fugas y de filtro de retorno","f":["D"]},{"c":"Desbobinador","d":"Limpieza externa de Panel de Operador","f":["D"]},{"c":"Desbobinador","d":"Inspección de fugas en desbobinador","f":["D"]},{"c":"Desbobinador","d":"Engrase y Lubricación General y engrase de coronas de rotación de mandril","f":["S"]},{"c":"Desbobinador","d":"Engrase de guías de Mamparo, desenrollar y corona central","f":["S"]}]},{"name":"Empalmadora","items":[{"c":"Empalmadora","d":"Limpieza de Barras y Tornillos sin fin en mesas de entrada y salida de tiras, engrasar","f":["D"]},{"c":"Empalmadora","d":"Limpieza y Engrase en Mecanismo de Soldadura","f":["D"]},{"c":"Empalmadora","d":"Limpieza externa de panel de Operador","f":["D"]},{"c":"Empalmadora","d":"Limpieza de Central hidráulica, Inspección de fugas y de filtro de retorno","f":["D"]},{"c":"Empalmadora","d":"Limpieza de rodos aplanadora y pinch-roll","f":["D"]},{"c":"Empalmadora","d":"Engrase y lubricación General","f":["S"]},{"c":"Empalmadora","d":"Engrase de cremalleras","f":["S"]},{"c":"Empalmadora","d":"Lubricación de cadenas portacables y tornillos sin fin","f":["S"]}]},{"name":"Acumulador","items":[{"c":"Acumulador","d":"Inspección de tornillería","f":["D"]},{"c":"Acumulador","d":"Limpieza general de bancadas y motores de pinch-roll","f":["D"]},{"c":"Acumulador","d":"Limpieza externa de motores eléctricos de acumulador y pich-roll","f":["D"]},{"c":"Acumulador","d":"Engrase general de acumulador","f":["S"]},{"c":"Acumulador","d":"Lubricación de cilindros neumáticos","f":["S"]},{"c":"Acumulador","d":"Engrase de pinch-roll Entrada de tiras","f":["S"]}]},{"name":"Molino","items":[{"c":"Molino","d":"Inspección de rodos guía entrada de bancadas de formación","f":["D"]},{"c":"Molino","d":"Inspección y Engrase de base de guía de tubo","f":["D"]},{"c":"Molino","d":"Inspección y Engrase de Torres de soldadura","f":["D"]},{"c":"Molino","d":"Inspección y Engrase de bases porta buril (Rebarbador Externo) y limpieza de rebarbador inferior","f":["D"]},{"c":"Molino","d":"Inspección y engrase de coronas","f":["D"]},{"c":"Molino","d":"Inspección de Fugas y Limpieza de Centrales hidráulicas e Inspeccionar filtro de retorno","f":["D"]},{"c":"Molino","d":"Limpieza externa de Panel de Operador","f":["D"]},{"c":"Molino","d":"Limpieza externa de torre de enfriamiento","f":["D"]},{"c":"Molino","d":"Limpieza de cardanes","f":["S"]},{"c":"Molino","d":"Limpieza externa de Motores trifásico de Bancadas de Molino","f":["S"]}]},{"name":"Perfiladora","items":[{"c":"Perfiladora","d":"Engrase y lubricación General","f":["S"]},{"c":"Perfiladora","d":"Lubricación de cilindros neumáticos","f":["S"]},{"c":"Perfiladora","d":"Lubricación de cardanes","f":["S"]},{"c":"Perfiladora","d":"Apriete y lubricación de cardanes (En parada)","f":["S"]},{"c":"Perfiladora","d":"Lubricación de cajas reductoras (En parada)","f":["S"]}]},{"name":"Soldadura","items":[{"c":"Perfiladora soldadura","d":"Inspección de faja de taco generador","f":["D"]},{"c":"Perfiladora soldadura","d":"Inspección funcionamiento inductores serie y paralelo","f":["D"]},{"c":"Perfiladora soldadura","d":"Inspección racores mangueras fugas de agua","f":["D"]},{"c":"Perfiladora soldadura","d":"Limpieza externa del área","f":["D"]},{"c":"Perfiladora soldadura","d":"Inspección de presión de agua en Intercambiador de Calor de Agua Desmineralizada","f":["S"]},{"c":"Perfiladora soldadura","d":"Cambio de teflón Interno y Externo de Nariz de soldadura","f":["S"]}]},{"name":"Remetalizadora","items":[{"c":"Remetalizadora","d":"Inspección y calibración de cañón de remetalizado","f":["D"]}]},{"name":"Tren de corte","items":[{"c":"Tren de corte","d":"Inspección de todas las mangueras asociadas al sistema de secado","f":["D"]},{"c":"Tren de corte","d":"Inspección y limpieza de tornillería de enconder","f":["D"]},{"c":"Tren de corte","d":"Inspección de intercambiador","f":["D"]},{"c":"Tren de corte","d":"Inspección y apriete de mangueras hidráulicas","f":["D"]},{"c":"Tren de corte","d":"Inspección de tornillos de Fajas y de tren de corte","f":["D"]},{"c":"Tren de corte","d":"Inspección de rodamientos","f":["D"]},{"c":"Tren de corte","d":"Limpieza y Inspección de sensores de proximidad","f":["D"]},{"c":"Tren de corte","d":"Limpieza de Central hidráulica","f":["D"]},{"c":"Tren de corte","d":"Inspección de Fugas de Central hidráulica","f":["D"]},{"c":"Tren de corte","d":"Limpieza de mordazas","f":["D"]},{"c":"Tren de corte","d":"Engrase general tren de corte","f":["S"]},{"c":"Tren de corte","d":"Verificación de guarda de acople de motor AC","f":["S"]},{"c":"Tren de corte","d":"Engrase de mordazas","f":["S"]}]},{"name":"Vía de rodillos","items":[{"c":"Vía de rodillos","d":"Verificación de apriete de tornillería de chumaceras y rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Verificación apreté alineación vía rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Engrase general vía rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Inspección de apriete en amortiguador de botador de tubo","f":["S"]}]},{"name":"Empacadora","items":[{"c":"Empacadora","d":"Limpieza externa de Panel de Operador","f":["D"]},{"c":"Empacadora","d":"Limpieza de Central hidráulica","f":["D"]},{"c":"Empacadora","d":"Lubricación y Engrase General","f":["S"]},{"c":"Empacadora","d":"Inspección General de Sensores","f":["S"]},{"c":"Empacadora","d":"Verificación de apriete en tornillería en general","f":["S"]},{"c":"Empacadora","d":"Inspección de Fugas de Central hidráulica","f":["S"]},{"c":"Empacadora","d":"Inspección de cadenas y sprocket de vía de rodillos completa","f":["S"]}]}],"1687":[{"name":"Desbobinador","items":[{"c":"Desbobinador","d":"Limpieza del área","f":["D"]},{"c":"Desbobinador","d":"Engrase general de Desbobinador (En paro)","f":["S"]},{"c":"Desbobinador","d":"Engrase de Coronas dentadas de mandril (En paro)","f":["S"]},{"c":"Desbobinador","d":"Inspección de fuga de agua en corona de rotación","f":["S"]},{"c":"Desbobinador","d":"Engrase de guías de mamparo","f":["S"]},{"c":"Desbobinador","d":"Inspección de fugas en área del Desbobinador y sistema hidráulico","f":["S"]}]},{"name":"Empalmadora","items":[{"c":"Empalmadora","d":"Limpieza del área","f":["D"]},{"c":"Empalmadora","d":"Limpieza de Central hidráulica (Externa)","f":["D"]},{"c":"Empalmadora","d":"Inspección de fugas en Central hidráulica","f":["D"]},{"c":"Empalmadora","d":"Limpieza de pitch roll y aplanadoran (En paro)","f":["D"]},{"c":"Empalmadora","d":"Limpieza externa de Panel Operador","f":["D"]},{"c":"Empalmadora","d":"Engrase general de pegacintas","f":["S"]},{"c":"Empalmadora","d":"Engrase de ajuste mecánicos de ancho de tira banca móvil y fija de pegacintas","f":["S"]},{"c":"Empalmadora","d":"Engrase de pinch roll y aplanadora (En paro)","f":["S"]},{"c":"Empalmadora","d":"Engrase de tornillos sin fin de Antorcha de pegacintas (En paro)","f":["S"]}]},{"name":"Acumulador","items":[{"c":"Acumulador","d":"Inspección de fugas en central hidráulica de acumulador","f":["D"]},{"c":"Acumulador","d":"Limpieza externa de central hidráulica de acumulador","f":["D"]},{"c":"Acumulador","d":"Limpieza de virutas entrada de pitch roll y cilindros deflectores","f":["D"]},{"c":"Acumulador","d":"Limpieza externa de Panel de Operador","f":["D"]},{"c":"Acumulador","d":"Inspección de fugas en cilindros neumáticos","f":["S"]},{"c":"Acumulador","d":"Inspección de rodo inferior de entrada de acumulador","f":["S"]}]},{"name":"Molino","items":[{"c":"Molino","d":"Limpieza de rodos y guía entrada de lámina molino superiores e inferiores","f":["D"]},{"c":"Molino","d":"Limpieza de bancadas de cajas reductoras","f":["D"]},{"c":"Molino","d":"Limpieza de corona guía de tubo","f":["D"]},{"c":"Molino","d":"Limpieza de cámara de enfriamiento (Externa)","f":["D"]},{"c":"Molino","d":"Inspección de fuga en rodos de cámara de enfriamiento","f":["D"]},{"c":"Molino","d":"Limpieza externa de Panel de Operador","f":["D"]},{"c":"Molino","d":"Limpieza central hidráulica(Externa)","f":["D"]},{"c":"Molino","d":"Engrase general de cardanes y torres fijas (En paro)","f":["S"]},{"c":"Molino","d":"Engrase de corona guía de tubo","f":["S"]},{"c":"Molino","d":"Inspección de fugas en mangueras y acoples rápidos hidráulicos de bancadas de formación","f":["S"]},{"c":"Molino","d":"Inspección de fuga en sello bomba de impeder","f":["S"]},{"c":"Molino","d":"Inspección de bases porta buril (Rebarbador Externo)","f":["S"]},{"c":"Molino","d":"Engrase de rodos de cámara de enfriamiento(En paro)","f":["S"]},{"c":"Molino","d":"Inspección de coronas y cabezas turcas","f":["S"]},{"c":"Molino","d":"Inspección de cojinetes de enconder, base y barras guías","f":["S"]}]},{"name":"Soldadura","items":[{"c":"Perfiladora soldadura","d":"Limpieza externa e Interna","f":["D"]},{"c":"Perfiladora soldadura","d":"Inspección de faja de taco generador","f":["S"]},{"c":"Perfiladora soldadura","d":"Inspección racores mangueras fugas de agua","f":["S"]}]},{"name":"Remetalizadora","items":[{"c":"Remetalizadora","d":"Inspección y calibración de cañón de remetalizado","f":["D"]}]},{"name":"Tren de corte","items":[{"c":"Tren de corte","d":"Inspección de todas las mangueras asociadas al sistema de secado","f":["D"]},{"c":"Tren de corte","d":"Limpieza general de virutas y esquirlas","f":["D"]},{"c":"Tren de corte","d":"Inspección y apriete de mangueras hidráulicas","f":["D"]},{"c":"Tren de corte","d":"Inspección de rodamientos lineales principales de traslación","f":["D"]},{"c":"Tren de corte","d":"Inspección de apriete en sensores de proximidad","f":["D"]},{"c":"Tren de corte","d":"Limpieza externa de Panel de Operador","f":["D"]},{"c":"Tren de corte","d":"Apretar toda la tornillería en general (En paro)","f":["S"]},{"c":"Tren de corte","d":"Inspección de Nivel aceite Hidráulico central Hidráulica","f":["S"]},{"c":"Tren de corte","d":"Inspección de Tapaderas de sierras de Tren de corte","f":["S"]}]},{"name":"Vía de rodillos","items":[{"c":"Vía de rodillos","d":"Inspección o Inspección de apriete de tornillería de chumaceras y rodillos","f":["D"]},{"c":"Vía de rodillos","d":"Limpieza general vía rodillos","f":["D"]},{"c":"Vía de rodillos","d":"Engrase general vía rodillos (En paro)","f":["S"]}]},{"name":"Empacadora","items":[{"c":"Empacadora","d":"Limpieza del área empacadora (retirar, wipes, polvo, grasa)","f":["D"]},{"c":"Empacadora","d":"Limpieza externa de panel de operador","f":["D"]},{"c":"Empacadora","d":"Engrase general de empacadora (En paro)","f":["S"]},{"c":"Empacadora","d":"Inspección de fugas de aire en sistema neumático","f":["S"]}]}],"T&H":[{"name":"Desbobinador","items":[{"c":"Desbobinador","d":"Limpieza del área","f":["D","S"]},{"c":"Desbobinador","d":"Verificar que no existan fugas de aire en sistema neumático","f":["D","S"]},{"c":"Desbobinador","d":"Limpieza externa de central hidráulica","f":["D","S"]},{"c":"Desbobinador","d":"Engrase general mamparo, guías deslizamiento","f":["S"]},{"c":"Desbobinador","d":"Engrase general a desbobinadora por los puntos de engrasadoras instalados","f":["S"]},{"c":"Desbobinador","d":"Verificación de apriete de tornillería en aspas y mandriles","f":["S"]}]},{"name":"Empalmadora","items":[{"c":"Empalmadora","d":"Limpieza general del equipo","f":["D","S"]},{"c":"Empalmadora","d":"Verificar el buen estado de mordazas","f":["D"]},{"c":"Empalmadora","d":"Inspección de mordaza, cuchillas de corte, niveladores","f":["S"]},{"c":"Empalmadora","d":"Inspección de fugas neumáticas","f":["S"]}]},{"name":"Acumulador","items":[{"c":"Acumulador","d":"Limpieza exterior de panel operativo","f":["D","S"]},{"c":"Acumulador","d":"Limpieza del área del acumulador (Externa)","f":["D"]},{"c":"Acumulador","d":"Inspección de funcionamiento de rodamientos de rodos de pinch-roll","f":["S"]},{"c":"Acumulador","d":"Sopleteado de cilindros neumáticos","f":["S"]},{"c":"Acumulador","d":"Engrase general acumulador (En paro)","f":["S"]},{"c":"Vástago guía","d":"Limpiar los tornillos de las barras de deslizamiento","f":["S"]},{"c":"Motorización cesto de carga","d":"Limpieza general de la máquina, retirando virutas y suciedad en las juntas de transmisión","f":["S"]}]},{"name":"Molino","items":[{"c":"Molino","d":"Limpieza externa de paneles de operación","f":["D","S"]},{"c":"Molino","d":"Limpieza externa a sistema de enfriamiento","f":["D","S"]},{"c":"Molino","d":"Inspección de funcionamiento de rodos moldeadores","f":["D"]},{"c":"Molino","d":"Inspeccionar estado físico de mangueras de lubricación y enfriamiento","f":["D","S"]},{"c":"Molino","d":"Inspección de funcionamiento rodos de entrada","f":["S"]},{"c":"Molino","d":"Inspección de funcionamiento de bancadas","f":["S"]},{"c":"Molino","d":"Inspección de fugas en cajas reductoras","f":["S"]},{"c":"Molino","d":"Engrase general de molino, torres y puntos de engrase","f":["S"]},{"c":"Molino","d":"Inspección de tornillos encoder de largo tubería","f":["S"]},{"c":"Molino","d":"Inspección de tubería de soluble, que no exista fugas o accesorios en mal estado","f":["S"]},{"c":"Molino","d":"Inspección en cámara de enfriamiento","f":["S"]},{"c":"Molino","d":"Limpieza de cabezas turcas, Engrase","f":["S"]}]},{"name":"Soldadura","items":[{"c":"Soldadura","d":"Limpieza externa de túnel de enfriamiento","f":["D","S"]},{"c":"Soldadura","d":"Limpieza externa a panel de operación","f":["D"]},{"c":"Soldadura","d":"Limpieza en paso de micro alambré","f":["D"]},{"c":"Soldadura","d":"Limpieza de torres de porta buriles","f":["S"]},{"c":"Soldadura","d":"Limpieza de tornillos sin fin","f":["S"]},{"c":"Soldadura","d":"Inspección de mangueras de enfriamiento y lubricación","f":["S"]},{"c":"Soldadura","d":"Inspección de guías de deslizamiento (externa)","f":["S"]},{"c":"Soldadura","d":"Lubricación guías entrada a enfriamiento (En parada)","f":["S"]},{"c":"Soldadura","d":"Lubricación en rebarbado","f":["S"]}]},{"name":"Remetalizadora","items":[{"c":"Remetalizadora","d":"Inspección y calibración de cañón de remetalizado","f":["D","S"]}]},{"name":"Tren de corte","items":[{"c":"Tren de corte","d":"Inspección de todas las mangueras asociadas al sistema de secado","f":["D","S"]},{"c":"Tren de corte","d":"Limpieza del área","f":["D"]},{"c":"Tren de corte","d":"Inspección de mangueras de lubricación","f":["D"]},{"c":"Tren de corte","d":"Inspección de mangueras de enfriamiento","f":["D"]},{"c":"Tren de corte","d":"Inspeccionar tornillería, que no haya alguna floja","f":["D"]},{"c":"Tren de corte","d":"Engrase general tren de corte (En parada)","f":["S"]},{"c":"Tren de corte","d":"Inspección y apriete de mangueras hidráulicas","f":["S"]},{"c":"Tren de corte","d":"Limpieza externa central hidráulica","f":["S"]},{"c":"Tren de corte","d":"Inspeccionar y apretar toda la tornillería","f":["S"]},{"c":"Tren de corte","d":"Inspección bases de mordazas","f":["S"]}]},{"name":"Vía de rodillos","items":[{"c":"Vía de rodillos","d":"Limpieza del área, eliminar desperdicios","f":["D","S"]},{"c":"Vía de rodillos","d":"Verificar el funcionamiento del sistema de rechazo","f":["D","S"]},{"c":"Vía de rodillos","d":"Apriete de tornillería de chumaceras y rodillos","f":["S"]},{"c":"Vía de rodillos","d":"Engrase general vía rodillos (En parada)","f":["S"]},{"c":"Vía de rodillos","d":"Inspección de ejes y sistema de tracción","f":["S"]},{"c":"Vía de rodillos","d":"Inspección de base y sensor de botador de tubo","f":["S"]}]},{"name":"Empacadora","items":[{"c":"Empacadora","d":"Engrase y lubricación en puntos accesibles","f":["S"]}]}],"HVS":[{"name":"Entrada (pre-carga)","items":[{"c":"Torniquete","d":"Limpieza del desbobinador","f":["D"]},{"c":"Torniquete","d":"Inspección de tornillería y tuerca","f":["D"]},{"c":"Carro bobina de entrada","d":"Limpieza de riel de carro de bobina y área","f":["D"]},{"c":"Carro bobina de entrada","d":"Inspección de fugas en cilindro hidráulico","f":["D"]},{"c":"Carro bobina de entrada","d":"Inspección de fugas en tanque hidráulico","f":["D"]},{"c":"Carro bobina de entrada","d":"Inspección de nivel de aceite","f":["D"]},{"c":"Carro bobina de entrada","d":"Inspeccionar que no haya fugas de aceite hidráulico y que el encoder esté limpio, con cables, conectores y sujeción en buen estado","f":["S"]},{"c":"Torniquete de entrada de 4 brazos","d":"Inspeccionar que no haya fugas de aceite hidráulico","f":["S"]}]},{"name":"Carga y desenrollador","items":[{"c":"Soporte de bobina","d":"Inspección de chumaceras (ver que no este flojo)","f":["D"]},{"c":"Soporte de bobina","d":"Inspección de cadena (Verificar que no se safe el sprocket)","f":["D"]},{"c":"Mesa de enhebrado (Pelador de bobina)","d":"Limpieza del área","f":["D"]},{"c":"Desenrollador con Rodillo de Sujeción","d":"Inspeccionar que no haya fugas de aceite hidráulico y el funcionamiento del freno","f":["S"]},{"c":"Caja reductora","d":"Inspeccionar el nivel de aceite de la caja reductora","f":["S"]},{"c":"Mandril","d":"Inspeccionar el eje de rotación","f":["S"]}]},{"name":"Pinch roll / aplanador","items":[{"c":"Rollos de presión/ aplanador","d":"Inspección de rodo aplanador (Verificar que gire)","f":["D"]},{"c":"Rollos de presión/ aplanador","d":"Inspección de fugas de aceite","f":["D"]},{"c":"Rollos de presión/ aplanador","d":"Limpieza del área pinch roll/aplanadora","f":["D"]},{"c":"Pinch-roll","d":"Inspeccionar que no haya fugas de aceite hidráulico y que los cables y conexiones eléctricas estén en buen estado","f":["S"]}]},{"name":"Cizalla de entrada","items":[{"c":"Cizalla de entrada","d":"Limpieza del área de la cizalla de entrada","f":["D"]},{"c":"Cizalla de entrada","d":"Inspección de fuga en cilindro neumático regulador de altura de cizalla","f":["D"]},{"c":"Cizalla de entrada","d":"Inspeccionar que no haya fugas de aceite hidráulico, que los cables y conexiones estén en buen estado y que el encoder esté limpio y bien sujeto","f":["S"]}]},{"name":"Guías laterales","items":[{"c":"Unidad de guía lateral","d":"Inspección de fugas de rodos laterales","f":["D"]},{"c":"Unidad de guía lateral","d":"Verificación y prueba de funcionamiento (Apertura y cierre)","f":["D"]},{"c":"Rollo antialeteo","d":"Verificar ajuste en chumaceras","f":["D"]},{"c":"Rollo antialeteo","d":"Verificar desgaste de rodillo","f":["D"]},{"c":"Rollo antialeteo","d":"Inspección de fuga en cilindros y mangueras hidráulicas","f":["D"]},{"c":"Guía Borde FIFE","d":"Inspeccionar que la estructura de soporte, los cables y las conexiones estén en buen estado","f":["S"]},{"c":"Guías laterales de Rodillos de pellizco","d":"Inspeccionar los rodamientos de los rodillos verticales","f":["S"]},{"c":"Guías laterales de Rodillos de pellizco","d":"Inspeccionar que no haya fugas de aceite hidráulico y que el encoder esté limpio y bien sujeto","f":["S"]},{"c":"Guías laterales de Rodillos de pellizco","d":"Inspeccionar los rodillos de centrado (estado y alineación con el material) y el tornillo que ajusta las guías de lado a lado","f":["S"]}]},{"name":"Cizalla circular (corte de tiras)","items":[{"c":"Unidad Cortadora y Base Principal","d":"Limpieza del área","f":["D"]},{"c":"Motorización Cizalla Circular","d":"Inspeccionar los rodamientos, acoples, cardanes y partes móviles del equipo","f":["S"]},{"c":"Motorización Cizalla Circular","d":"Inspeccionar que no haya fugas de aceite hidráulico y el funcionamiento del freno","f":["S"]},{"c":"Cizalla Circular","d":"Inspeccionar las guías de deslizamiento y los rodamientos, acoples, cardanes y partes móviles del equipo","f":["S"]},{"c":"Cizalla Circular","d":"Inspeccionar que no haya fugas de aceite hidráulico y que el encoder esté limpio y bien sujeto","f":["S"]},{"c":"Cargador de Cuchillas","d":"Limpiar el equipo, sus superficies y alrededores, retirando viruta, grasa, aceite y polvo","f":["S"]}]},{"name":"Orillas y recortes","items":[{"c":"Carro Chatarra","d":"Limpieza de carro en general","f":["D"]},{"c":"Cinta Orilla 1 y 2","d":"Verificar fuga de aceite","f":["D"]},{"c":"Cinta Orilla 1 y 2","d":"Inspección de chumaceras fijación","f":["D"]},{"c":"Cinta Orilla 1 y 2","d":"Limpieza del área","f":["D"]},{"c":"Cinta Orilla 1 y 2","d":"Verificación de funcionamiento de sensores","f":["D"]},{"c":"Cinta Orilla","d":"Inspeccionar que no haya fugas de aceite hidráulico, el mandril recolector y la guía por donde pasa el cinta orilla","f":["S"]},{"c":"Cinta Orilla","d":"Limpiar la estructura de soporte, el área del operador y las guías","f":["S"]},{"c":"Cinta Orilla","d":"Limpiar el equipo, sus superficies y alrededores, retirando viruta, grasa, aceite y polvo","f":["S"]},{"c":"Cinta Orilla","d":"Lubricar los rodamientos del mandril","f":["S"]},{"c":"Prensador de Rebabas","d":"Inspeccionar que no haya fugas de aceite hidráulico y que los cables y conexiones eléctricas estén en buen estado","f":["S"]}]},{"name":"Tensionador","items":[{"c":"Extensionador Modular","d":"Inspección de fugas en sistema hidráulico","f":["D"]},{"c":"Extensionador Modular","d":"Limpieza del área","f":["D"]},{"c":"Cilindro","d":"Limpieza del área","f":["D"]},{"c":"Grupo Tensionador","d":"Inspeccionar que no haya fugas de aceite hidráulico, que los cables y conexiones estén en buen estado, que las bolsas de aire tengan presión y que el encoder esté limpio y bien sujeto","f":["S"]},{"c":"Grupo Tensionador","d":"Limpiar todo el equipo: superficies, rodillos y cubiertas","f":["S"]}]},{"name":"Bobinador de salida","items":[{"c":"Soporte giratorio cambio rápido","d":"Lubricación de tuerca de brazo de cuchilla","f":["D"]},{"c":"Soporte giratorio cambio rápido","d":"Limpieza del área","f":["D"]},{"c":"Carro separador bajo","d":"Limpieza de carro","f":["D"]},{"c":"Carro transportador de separadores","d":"Inspección de ruedas","f":["D"]},{"c":"Carro transportador de separadores","d":"Limpieza de carro","f":["D"]},{"c":"Soporte rodamiento externo de salida","d":"Limpieza de electroválvulas","f":["D"]},{"c":"Soporte rodamiento externo de salida","d":"Limpieza del área","f":["D"]},{"c":"Mandril de salida","d":"Limpiar todo el equipo: superficies, carcasas, parte posterior y cubiertas","f":["S"]},{"c":"Bobinador de Carrete","d":"Inspeccionar que no haya fugas de aceite hidráulico, el sistema de expulsión de bobinas y el funcionamiento del freno del bobinador","f":["S"]},{"c":"Bobinador de Carrete","d":"Inspeccionar los rodamientos del mandril y las partes móviles del bobinador, del prensador de colas y del soporte del carrete","f":["S"]},{"c":"Prensador de Colas","d":"Inspeccionar el funcionamiento del freno del prensador de colas y que esté completo","f":["S"]}]},{"name":"Descarga","items":[{"c":"Carro salida de tiras","d":"Limpieza del área","f":["D"]},{"c":"Carro de descarga de Tiras","d":"Limpiar el equipo y sus alrededores, retirando viruta, grasa, aceite y polvo","f":["S"]},{"c":"Carro de descarga de Tiras","d":"Inspeccionar el sistema de elevación","f":["S"]},{"c":"Torniquete de descarga de 4 brazos","d":"Limpiar el equipo y sus alrededores, retirando viruta, grasa, aceite y polvo","f":["S"]},{"c":"Torniquete de descarga de 4 brazos","d":"Inspeccionar que no haya fugas de aceite hidráulico, el funcionamiento del freno y del motor","f":["S"]},{"c":"Torniquete de descarga de 4 brazos","d":"Inspeccionar el sistema de sujeción y las partes móviles del brazo de sujeción y del sistema giratorio","f":["S"]}]},{"name":"Servicios (hidráulica y enfriamiento)","items":[{"c":"Central hidráulica","d":"Inspección de fugas","f":["D"]},{"c":"Central hidráulica","d":"Limpieza Externa de la central hidráulica","f":["D"]},{"c":"Sistema de enfriamiento","d":"Funcionamiento del ventilador","f":["D"]}]}],"M2":[{"name":"Desbobinador","items":[{"c":"Desbobinador","d":"Limpieza general del Desbobinador, eliminación de residuos","f":["D"]},{"c":"Desbobinador","d":"Inspección de funcionamiento de mandril expansivo","f":["D"]},{"c":"Desbobinador","d":"Inspección de mangueras y manómetros en circuito neumático","f":["D"]},{"c":"Desbobinador","d":"Ajuste de tornillos de anclaje base desbobinador","f":["D"]},{"c":"Desbobinador","d":"Inspección y ajuste de tornillo sin fin mandril expansivo","f":["D"]},{"c":"Desbobinador","d":"Inspección y apriete de tornillería y tuercas","f":["D"]},{"c":"Desbobinador","d":"Limpieza de viruta internas interior mecanismo de corte y limpieza del área (En paro)","f":["D"]},{"c":"Desbobinador","d":"Inspección de flujómetro acetileno","f":["D"]},{"c":"Desbobinador","d":"Limpieza extera del sistema hidráulico","f":["D"]},{"c":"Desbobinador","d":"Comprobar que no haya fugas neumáticas","f":["S"]},{"c":"Mandril","d":"Inspeccionar estado de paletas de presión y contención. Apariencia uniforme y movimientos firmes","f":["S"]},{"c":"Mandril","d":"Inspeccionar estructura y tornillería en general. Reportar faltantes","f":["S"]},{"c":"Mandril","d":"Limpieza de superficie y partes móviles, retirar grasa vieja y virutas que puedan afectar la funcionabilidad del equipo","f":["S"]},{"c":"Mandril","d":"Engrasar y lubricar rodamientos, guías de deslizamiento, eje de rotación y la estructura móvil","f":["S"]},{"c":"Paletas de presión","d":"Engrasar y lubricar rodamientos y puntos de giro","f":["S"]},{"c":"Dosificador","d":"Engrasar todos los puntos de engrase según dosificación recomendada","f":["S"]}]},{"name":"Empalmadora","items":[{"c":"Empalmadora","d":"Comprobar que no haya fugas hidráulicas o neumáticas","f":["S"]},{"c":"Empalmadora","d":"Limpieza general del equipo, rieles, guías, cuerpos, visores y alrededores del equipo para eliminar acumulación de residuos y grasa","f":["S"]},{"c":"Empalmadora","d":"Limpieza a un costado de la empalmadora, donde está ubicada la cadena portacable y las mangueras hidráulicas","f":["S"]},{"c":"Empalmadora","d":"Engrase y lubricación de partes móviles y puntos de lubricación correspondientes","f":["S"]},{"c":"Centralita Oleodinámica","d":"Revisión del nivel de aceite","f":["S"]},{"c":"Guías y carro","d":"Limpieza de residuos de soldadura adheridos a las guías y las estructuras de trabajo","f":["S"]}]},{"name":"Molino (conformado)","items":[{"c":"Guía Rodillos","d":"Limpieza de guía rodillos de entrada","f":["D"]},{"c":"Guía Rodillos","d":"Inspección de lubricación de guía rodillos","f":["D"]},{"c":"Guía Rodillos","d":"Inspección de mangueras plásticas LOC-LINE 49421 BLUE 1/4\"","f":["D"]},{"c":"Sonda de Velocidad Costanera","d":"Inspección de conector de enconder","f":["D"]},{"c":"Torre Manual 1-10","d":"Limpieza de torres","f":["D"]},{"c":"Torre Manual 1-10","d":"Limpieza de bancada, eliminación de wipe y lodo (En paro)","f":["D"]},{"c":"Motorización de molino","d":"Inspección de ajuste y estado de fajas de motor principal de molino","f":["D"]},{"c":"Motorización de molino","d":"Limpieza general","f":["D"]},{"c":"Torres de conformado","d":"Limpieza de residuos sobre mesa de conformado, remover exceso de arenas y virutas cerca de tornillería","f":["S"]},{"c":"Torres de conformado","d":"Remover exceso de arenas y virutas en rodos, ejes y puntos móviles. Realizar con máquina detenida","f":["S"]}]},{"name":"Troquel (corte)","items":[{"c":"Manómetro","d":"Observar integridad, fijación y cableado en buen estado de los sensores de cuchillas","f":["S"]},{"c":"Carro de corte","d":"Limpieza de guías, tornillo sin fin y partes móviles","f":["S"]},{"c":"Carro de corte","d":"Lubricar puntos de engrase de rodamientos y guías de desplazamiento","f":["S"]}]},{"name":"Vía de rodillos y mesa","items":[{"c":"Motorización de rodillos","d":"Limpieza del área","f":["D"]},{"c":"Final de carrera neumático","d":"Inspección de válvulas neumáticas","f":["D"]},{"c":"Final de carrera neumático","d":"Inspección de mangueras neumáticas","f":["D"]},{"c":"Vía de rodillos","d":"Verificar estado de la via de rodillos. Sin cortes, desgaste significativo","f":["S"]},{"c":"Mesa","d":"Observar fijación de la mesa y tornillería. Notificar en caso de movimientos irregulares o bruscos","f":["S"]}]},{"name":"General","items":[{"c":"Paneles de control","d":"Observar estado de botones, palancas, switches, potenciómetros y componentes del panel de control principal y del desbobinador","f":["S"]},{"c":"Cilindro Neumático","d":"Observar movimiento al accionar pistón neumático. Movimiento uniforme, sin pausas y con fuerza","f":["S"]}]}],"M3":[{"name":"Desbobinador","items":[{"c":"Desbobinador","d":"Limpieza general del Desbobinador, eliminación de residuos","f":["D"]},{"c":"Desbobinador","d":"Inspección de funcionamiento de mandril expansivo","f":["D"]},{"c":"Desbobinador","d":"Inspección de mangueras y manómetros en circuito neumático","f":["D"]},{"c":"Desbobinador","d":"Ajuste de tornillos de anclaje base desbobinador","f":["D"]},{"c":"Desbobinador","d":"Inspección y ajuste de tornillo sin fin mandril expansivo","f":["D"]},{"c":"Desbobinador","d":"Inspección y apriete de tornillería y tuercas","f":["D"]},{"c":"Desbobinador","d":"Limpieza de viruta internas interior mecanismo de corte y limpieza del área (En paro)","f":["D"]},{"c":"Desbobinador","d":"Inspección de flujómetro acetileno","f":["D"]},{"c":"Desbobinador","d":"Limpieza extera del sistema hidráulico","f":["D"]},{"c":"Desbobinador","d":"Comprobar que no haya fugas neumáticas","f":["S"]},{"c":"Mandril","d":"Inspeccionar estado de paletas de presión y contención. Apariencia uniforme y movimientos firmes","f":["S"]},{"c":"Mandril","d":"Inspeccionar estructura y tornillería en general. Reportar faltantes","f":["S"]},{"c":"Mandril","d":"Limpieza de superficie y partes móviles, retirar grasa vieja y virutas que puedan afectar la funcionabilidad del equipo","f":["S"]},{"c":"Mandril","d":"Engrasar y lubricar rodamientos, guías de deslizamiento, eje de rotación y la estructura móvil","f":["S"]},{"c":"Paletas de presión","d":"Engrasar y lubricar rodamientos y puntos de giro","f":["S"]},{"c":"Dosificador","d":"Engrasar todos los puntos de engrase según dosificación recomendada","f":["S"]}]},{"name":"Empalmadora","items":[{"c":"Empalmadora","d":"Comprobar que no haya fugas hidráulicas o neumáticas","f":["S"]},{"c":"Empalmadora","d":"Limpieza general del equipo, rieles, guías, cuerpos, visores y alrededores del equipo para eliminar acumulación de residuos y grasa","f":["S"]},{"c":"Empalmadora","d":"Limpieza a un costado de la empalmadora, donde está ubicada la cadena portacable y las mangueras hidráulicas","f":["S"]},{"c":"Empalmadora","d":"Engrase y lubricación de partes móviles y puntos de lubricación correspondientes","f":["S"]},{"c":"Centralita Oleodinámica","d":"Revisión del nivel de aceite","f":["S"]},{"c":"Guías y carro","d":"Limpieza de residuos de soldadura adheridos a las guías y las estructuras de trabajo","f":["S"]}]},{"name":"Molino (conformado)","items":[{"c":"Guía Rodillos","d":"Limpieza de guía rodillos de entrada","f":["D"]},{"c":"Guía Rodillos","d":"Inspección de lubricación de guía rodillos","f":["D"]},{"c":"Guía Rodillos","d":"Inspección de mangueras plásticas LOC-LINE 49421 BLUE 1/4\"","f":["D"]},{"c":"Sonda de Velocidad Costanera","d":"Inspección de conector de enconder","f":["D"]},{"c":"Torre Manual 1-10","d":"Limpieza de torres","f":["D"]},{"c":"Torre Manual 1-10","d":"Limpieza de bancada, eliminación de wipe y lodo (En paro)","f":["D"]},{"c":"Motorización de molino","d":"Inspección de ajuste y estado de fajas de motor principal de molino","f":["D"]},{"c":"Motorización de molino","d":"Limpieza general","f":["D"]},{"c":"Torres de conformado","d":"Limpieza de residuos sobre mesa de conformado, remover exceso de arenas y virutas cerca de tornillería","f":["S"]},{"c":"Torres de conformado","d":"Remover exceso de arenas y virutas en rodos, ejes y puntos móviles. Realizar con máquina detenida","f":["S"]}]},{"name":"Troquel (corte)","items":[{"c":"Manómetro","d":"Observar integridad, fijación y cableado en buen estado de los sensores de cuchillas","f":["S"]},{"c":"Carro de corte","d":"Limpieza de guías, tornillo sin fin y partes móviles","f":["S"]},{"c":"Carro de corte","d":"Lubricar puntos de engrase de rodamientos y guías de desplazamiento","f":["S"]}]},{"name":"Vía de rodillos y mesa","items":[{"c":"Motorización de rodillos","d":"Limpieza del área","f":["D"]},{"c":"Final de carrera neumático","d":"Inspección de válvulas neumáticas","f":["D"]},{"c":"Final de carrera neumático","d":"Inspección de mangueras neumáticas","f":["D"]},{"c":"Vía de rodillos","d":"Verificar estado de la via de rodillos. Sin cortes, desgaste significativo","f":["S"]},{"c":"Mesa","d":"Observar fijación de la mesa y tornillería. Notificar en caso de movimientos irregulares o bruscos","f":["S"]}]},{"name":"General","items":[{"c":"Paneles de control","d":"Observar estado de botones, palancas, switches, potenciómetros y componentes del panel de control principal y del desbobinador","f":["S"]},{"c":"Cilindro Neumático","d":"Observar movimiento al accionar pistón neumático. Movimiento uniforme, sin pausas y con fuerza","f":["S"]}]}]}</script>
+<script>
+/* =====================================================================
+   CONFIGURACIÓN
+   - Si este archivo corre DENTRO de Apps Script (como app web), no hace
+     falta llenar API_URL: usa google.script.run automáticamente.
+   - Si lo abres como archivo .html suelto, pega aquí la URL /exec.
+   ===================================================================== */
+const API_URL = 'https://script.google.com/macros/s/AKfycbxRQYBg7O8pGBs2lkKUDRNNjXcxENWU6j1mN3bQLUauVbz3ydqIEMnoOMHag6sYDzpc/exec';
+const LOGO_SRC = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAIAAABMXPacAAALqklEQVR42u2dS2yd13HH/zNzvnsvKYrmfVBSJNpaFGnTAk4DFEjR1HpYVsSiTTdBgwZIAwRtNkVWfaSIRMlRJJGU06C2XpSUps3GkSUl7rbrol0FCBA0i3pRQ6kkK7aTyuLzPr5vZrr4LmU7llUyvOS9vDyz0ZMX5Pmd+Z85c+bModexF9G6ZxyHIAKIAKJFABFAtAggAogWAUQA0SKACCBaBBABRIsAIoBoEUDfW1jj1zsb4FtrzJzJqVcAAHDZIuMOwOEgd6B3AJiRpfk31MeOQACBEdiFicQ1x9BtAARPtxdalQqbGUjgfcsg82wxw9xCgoUAlLAtDQU3Y3eHA07OGw2ARFKdk89/8ddfeN5bLRJ2ALD2dOmnyW/uzbS1sJj+z53GD//zwX/8sP7vPwr1twdRSEMpcxtw940HkAtQKA4WyiMGSL9L0ACAj30U44d2O+Z+8l8//+dri9/9vsy9nchgSiF0SYLILYU7ZeptD+iz+d92agfgRnCHGPHIx39z5KXTc3/xZ3dPn0u//y8lcuKiuok7QL6BHuAsZEROFJipT6c/v+dXAhgOc3cMP/0bH7s5c+fSJ2f/+huDrYaGohvE4kZsAwSJmYRdTdX2fuVLO18+PzdYoqyRYNWzMMThXEMYwmzeSHXn5/4Ykrz1hb/kVkoUVhWhRg9YmzoxFRPRTHd+9g9GTv3dvDWFySkC2NANGkjYVPf8zZdLn/nMks4zBVsxgwigIxzInYiTsTN/NTc4lHqLiSKADfUDEWaz7b/9dO3zf6o+x7zSXVEE0BkAoPaI1/78T7KkDDWjFe2HIoDOYWCG+9DvfiL8zicyryfMFgFs9J5ZLYQwdPCTLdQ9ekA3FmMAKH38txxFuK0kKRMBdJ5A4dee8mQYaitxgQigwyIEQCrD8sTQCrPDEUBnHYABUCGxJPEIoAvmDx0h7oS74wIOIK+ZMKizGuvjtShmQ9fRHZz8/10Jogd02SKACCACiBYBRADRIoAIIFoEEAFE23wAGGDfardkOmZrzgWpqSoshbp4fgj6yywe/pmAD7tc8v6veXicRwDcARaIcATwiFErDgQRFXnMPSX6kN9jBX//8J/coAyJAN4dfbOAUv1f/+2/3/lqaktM7O36jPcRog8wow/H+R4XceQHfELUqt/fsfvpo39bqm43R58VYa/BA9wJBXnttfS1Hy/XXzyiII8elZAl0AdXDcoP9NolNg64IySoz3Nl9/VvD5SH1MyZOXrAe+asUygWuIh8ujqvsC6V/BEVrGTk7UseTu4kos3mUmXP3hsz1UP73DxwH64Ca12EydzztdeJ3Fd6OeZRSuSAm+ce4EyoL82Vh5/63sXqoX1Z1gihFKOgRwLgvBYjP4dbeWH2B/+nseb1fUaB0sZcuTJ2Y2b00wc8UwnFGIY+Tk86ujNhThtLw+Wxly/t+PRBV6XQzzfBe0hVCQALpc2FSmXXzZkdf/isZkrS5/fwu38ob6x5VKQkIa2/M1J+6trl0fEDLVUO/d8FoQc8gBxwD2Rab4zUnrp+ZXT8gKkWRLZCyUZPSBCxUKvZrFRGX7k8On4wy9K+V57uS9BynxtyCpQuPihX975ytXZkf5qlHISACGCdAeTKI0StRmOkNnb9cu3IflcNIdk6o99tCWKWVnOhXN5149s7jxw0zUhkS43+xgNwJzMykBEJ0tb9Sm33tZnqkX1ZlvmW0f1uSlAu/RmHkDaWypWxGzM7Dud73UDYitYFCSIWSRtzleru61d2HT6gqghCW/VEbYMAOJmzgdxIPG3NVatj1y5Wj+xPVVn4l48RogR1POBpK48EShuLI5WPfG+mNn7QM5UgW3XkN16CWELabFRre65f2TV+MFOlsNzkKQJYx7lPTsiVpzk7MrL72uXa+IFUl0+RaasDWE8JIndWABkLpY2lcmXPzau1w/stU97yyrMRHtBWF+GQNuuV6p6XZ3Ye3m+qHLoa8PdYa8118YD8vJcBZUGrOVcpP3njau3wvlam0qUMs+dNb7F8m72PPcDJndVZM4GkzYVydewH/1Q7vM8zTbo4913dkcIbb761NSSImbPmQqX65CuXRp/9VH6ySN2THTcG062Jf3jjO68CcNW+BUCAM1Pamq9Udl67WB0/qFnWzfy+O8xZ+N6LVx9MnwxI+3MNcDYnA+AsIW0ulGtjN6/WnnvGM+XQvaMts8zAgd84OzN79NQTJFIY6GcJImakzYWR6tgrM7Xnnum68qinFvjeC1fmj57aHgqZJ6TefwDa98FJ2NPmUrW269Wr5fEDqWq3lcdEim998+L9r32tIKHFLMiU+kuCjA1kAEBCrUa9Orr7+szooX2qyl0cfTM15yC3z87MHZ0syaBDSsYLYPbQZx7geZ4HWbNRru65eWX08H7NVKSLEaeruwe5M3l+9ujxYQlORdE84c2E/toHkBOJIG3MV6ujr16tHHpGtb3b2nit9eWYR0TunT0/f/zUNhlskSSagrQ3E09rAkBAYEZrcX7Hrr0/+M6OZ/elqlie+l34cc3VDMI//dblhaOTBSmQh0JG5GJEvfnAwZoAOFGqi0vVHU9ev1w5+HvINOmq8rgaidw9e2nxq18fkpJRAYYM7iDq1bzrGgAQEbReG/3IjX+sPfupLMs8dHu3lcjdqQuzR08OSLIIElNAqbdT3r86AGJOfXHws39Ue+73syzlrmXZ4OZmBuFb0xdnJ76RhAI8lBTs5L2qPJ0JQwlISkHNQMRdmmjk5pmhEG5Pvbg4MfmEDNUdlPds801wn4zX7PqOLt4ccoc5FcK96UuzE6cHpdgEBVPfPEUWnRq7bkw1MzOFyK3pC+8cO1EKRfdQUKdN9ZxZh7aFXYj5zTJYIdydeml+YnJEtrecyKAAfDPVeG3Oe4dt5eF7Z84tTpwekEIdYLXN2DBhkwFwwN3dFCJ3ps4/OHESUiRPCgpbYbfs/pSgDYx5LAOScHvqpfsTZythODOIwUB5HwOPHrDeyoOE701eWpo4WZPQAG3254w3B4BceeAOkbvTF35x/ATJUANczBBcbTMj2CQSZOYKT/j29Ll3jk1XZEidyWCbLebZnB6wrDw/m7xUP3aqJkmD2Pvl6eKeBrCc3zcKcvebFx8cn0hkoAkuqQPaHwR6W4LMTIFEbk2dq0+cHZBB9yCWPxodogesu/IYMkv43pmZxYlTgyIpAhu8v16O7lUAblATLrwxfW7uxIltsg0eBtSdFP1lPQRAlztmwUzVLcitqQuzx6YSGXBnNhgEzhHAusf75m5B3pg+vzDx/LAUlEKw9rvi1Hc3OnqsXY27mbPI3clvzR/7+pBsU0hR1ShDn1r3ATzMJbg6ZcbCP526MHf8hSEZzCBBQc4OiQDWPd4nNyRy58yLixMnyrKtQUlQygADdbgpV7/tA/IszXu2pr7q0YcCEuT25IsPTpwpyLYUcFMQUYdWXX/3m3W4+/u/4Q6GzoTVffKam/YxCZEm4eEPSatJyufdE/Oz89dPX1h8/kxBCvAkMTixecfWXHE0YQ6ygoCI1qkzAgUACMUMKy3HWCMATucbzfuz2lpiStoDucqJZQAFfvPCd2dP/n2Zi+pJMErh3FHZcZCTM4zu/2/zwZwvLSGEjp/fkJoXQv0Xb7tihR9Or2PvGuIWz4YGm5Vht5ZRKU+QMWFVNQkJmYPSO7efYFZwC15wQadFXxkBqbq1tpe1PAK19XAAJsoYnDa3vXnfkToRAFZ5DIw1AQDgSB0ZAwZu3xJYTXdnB1JoAQQOCikaKXLh6TAABwRuBHJ3rGNQm29WlORhodTjI4g1L8IskPztboKLk5Ni5ftVAhLxjJzVpR3tr0tgRoCB4HBiUFheJzu+ELQHW1a8DocOIDd/N4FDDif4KhzczYnWaTg+PGb7VeK13gxDnend2UTkq26kS+3x36K9C9Ychjqt7IWGx3wCtnLPjviITwQQAUSLACKAaBFABBAtAogAom2w/R/Hzl6PuEhzvwAAAABJRU5ErkJggg==';   // opcional: data:image/png;base64,... del logo Multi
+
+/* ---------- catálogo de países, unidades y líneas ---------- */
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const BANDERAS = { GT:'data:image/png;base64,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', CR:'data:image/png;base64,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' };
+const ORG = {
+  GT: { nombre: 'Guatemala', unidades: {
+    TUBOACERO:  { lineas: ['633','382','765','1687','T&H','HVS','M2','M3'] },
+    TECHOACERO: { lineas: [] },
+    MAYACERO:   { lineas: [] }
+  }},
+  CR: { nombre: 'Costa Rica', unidades: {
+    TUBOACERO:  { lineas: [] },
+    TECHOACERO: { lineas: [] }
+  }}
+};
+const UT = {'633':'GT1-ESC-PAL-TUBOACE-OM633','382':'GT1-ESC-PAL-TUBOACE-OM382','765':'GT1-ESC-PAL-TUBOACE-OM765','1687':'GT1-ESC-PAL-TUBOACE-OM1687','T&H':'GT1-ESC-PAL-TUBOACE-T&H','HVS':'GT1-ESC-PAL-TUBOACE-HVS','M2':'GT1-ESC-PAL-TUBOACE-M2','M3':'GT1-ESC-PAL-TUBOACE-M3'};
+const TIPOS_HALLAZGO = ['Limpieza','Inspección','Lubricación','Ajuste / apriete','Fuga','Seguridad','Otro'];
+const TIPOS_FALLA = ['Mecánico','Eléctrico','Hidráulico'];
+// ¿Por qué no cumple? → y el tipo de hallazgo que se manda a autónomos
+const MOTIVOS = ['Fuga','Sucio o contaminado','Dañado o desgastado','Flojo o falta pieza','Falta lubricación','Ruido o vibración','No funciona','Otro'];
+const MOTIVO_A_TIPO = {'Fuga':'Fuga','Sucio o contaminado':'Limpieza','Falta lubricación':'Lubricación','Flojo o falta pieza':'Ajuste / apriete'};
+const CRITICIDAD = ['Alta','Media','Baja'];
+
+/* ---------- utilidades ---------- */
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+const hoy = () => { const d = new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); };
+const fmtFecha = s => { if(!s) return '—'; const m = String(s).match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? `${m[3]}/${m[2]}/${m[1]}` : s; };
+const uid = p => p + '-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,6).toUpperCase();
+const lineItems = l => (DATA[l]||[]).flatMap((s,si) => s.items.map((it,ii) => ({...it, sec:s.name, id:`s${si}i${ii}`})));
+function toast(msg){ const t = document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(), 2600); }
+
+function inferTipoHallazgo(d){
+  d = d.toLowerCase();
+  if (/fuga/.test(d)) return 'Fuga';
+  if (/limpi|sopletea|retirar|elimina/.test(d)) return 'Limpieza';
+  if (/engras|lubric|nivel.*aceite|aceite/.test(d)) return 'Lubricación';
+  if (/apret|apriet|ajust|alinea/.test(d)) return 'Ajuste / apriete';
+  return 'Inspección';
+}
+function inferFalla(d){
+  d = d.toLowerCase();
+  if (/hidr[aá]ul/.test(d)) return ['Hidráulico'];
+  if (/el[eé]ctric|sensor|panel|encoder|cable|motor|inductor|generador|iluminaci/.test(d)) return ['Eléctrico'];
+  return ['Mecánico'];
+}
+
+/* ---------- conexión con el servidor (Apps Script) ---------- */
+const enAppsScript = () => !!(window.google && google.script && google.script.run);
+const hayServidor = () => enAppsScript() || !!API_URL;
+function api(action, payload){
+  if (enAppsScript()) return new Promise((res, rej) =>
+    google.script.run.withSuccessHandler(r => r && r.ok ? res(r) : rej(new Error((r&&r.error)||'Error del servidor')))
+      .withFailureHandler(rej).api(action, payload||{}));
+  if (!API_URL) return Promise.reject(new Error('sin-servidor'));
+  return fetch(API_URL, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action, payload: payload||{}}) })
+    .then(r => r.json()).then(r => { if(!r.ok) throw new Error(r.error||'Error del servidor'); return r; });
+}
+const PEND_KEY = 'autonomo:pendientes', HIST_KEY = 'autonomo:historial';
+let resumenServidor = null, conectado = null;
+
+function pintarConexion(){
+  const el = $('#conn'), pend = store.get(PEND_KEY, []).length;
+  el.className = 'conn' + (pend ? ' pend' : conectado ? '' : ' off');
+  if (pend) el.innerHTML = `<i></i><span>${pend} sin enviar · <button id="retry">Enviar ahora</button></span>`;
+  else if (!hayServidor()) el.innerHTML = '<i></i><span>Sin servidor configurado</span>';
+  else el.innerHTML = conectado ? '<i></i><span>Conectado</span>' : '<i></i><span>Sin conexión</span>';
+  const b = $('#retry'); if (b) b.onclick = () => enviarPendientes(true);
+}
+async function enviarPendientes(avisar){
+  let pend = store.get(PEND_KEY, []);
+  if (!pend.length || !hayServidor()) { pintarConexion(); return; }
+  const quedan = [];
+  for (const p of pend){
+    try { await api('registrarChecklist', p); marcarHistorial(p.checklist.id, true); }
+    catch(e){ quedan.push(p); }
+  }
+  store.set(PEND_KEY, quedan);
+  conectado = quedan.length < pend.length || conectado;
+  pintarConexion();
+  if (avisar) toast(quedan.length ? `Quedan ${quedan.length} sin enviar. Revisa la conexión.` : 'Todo enviado al servidor.');
+}
+async function cargarResumen(){
+  if (!hayServidor()) { conectado = false; pintarConexion(); return; }
+  try { const r = await api('resumen', {}); resumenServidor = r.checklists || []; conectado = true; }
+  catch(e){ conectado = false; }
+  pintarConexion();
+  if (!RUTA.split('/')[3]) route();   // refresca los mosaicos con lo último
+}
+function marcarHistorial(id, enviado){
+  const h = store.get(HIST_KEY, []); const x = h.find(r => r.id === id); if (x) { x.enviado = enviado; store.set(HIST_KEY, h); }
+}
+function ultimos(linea){
+  const loc = store.get(HIST_KEY, []).filter(r => r.linea === linea);
+  const srv = (resumenServidor||[]).filter(r => r.linea === linea);
+  const map = new Map(); [...srv, ...loc].forEach(r => map.set(r.id, r));
+  return [...map.values()].sort((a,b) => String(b.fechaRegistro||b.fechaRevision).localeCompare(String(a.fechaRegistro||a.fechaRevision)));
+}
+
+/* ---------- navegación ---------- */
+function crumbs(parts){
+  const atras = parts.length >= 2 ? parts[parts.length-2].h : '#/';
+  const back = parts.length ? `<a class="back" href="${atras}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>Regresar</a>` : '';
+  const out = ['<a href="#/">Inicio</a>'];
+  parts.forEach((p,i) => { out.push('<span class="sep">/</span>'); out.push(i === parts.length-1 ? `<b>${esc(p.t)}</b>` : `<a href="${p.h}">${esc(p.t)}</a>`); });
+  $('#crumbs').innerHTML = parts.length ? back + '<span class="trail">' + out.join('') + '</span>' : '';
+}
+function route(){
+  document.body.classList.remove('form-mode');
+  const [, pais, unidad, linea] = RUTA.replace(/^#/,'').split('/').map(decodeURIComponent);
+  $('#dockSlot').innerHTML = '';
+  if (pais && ORG[pais] && unidad && ORG[pais].unidades[unidad] && linea && DATA[linea]) return vistaFormulario(pais, unidad, linea);
+  if (pais && ORG[pais] && unidad && ORG[pais].unidades[unidad]) return vistaLineas(pais, unidad);
+  if (pais && ORG[pais]) return vistaUnidades(pais);
+  return vistaInicio();
+}
+/* La navegación no depende de que el navegador cambie la URL: así funciona
+   igual abierto como archivo, en vista previa o dentro de Apps Script. */
+let RUTA = (() => { try { return location.hash || '#/'; } catch(e){ return '#/'; } })();
+function ir(ruta){
+  RUTA = ruta || '#/';
+  try { if (location.hash !== RUTA) history.pushState(null, '', RUTA); } catch(e){}
+  route(); window.scrollTo(0,0);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  e.preventDefault();
+  ir(a.getAttribute('href'));
+});
+window.addEventListener('popstate', () => { try { RUTA = location.hash || '#/'; } catch(e){} route(); });
+window.addEventListener('hashchange', () => { try { RUTA = location.hash || '#/'; } catch(e){} route(); });
+
+function vistaInicio(){
+  crumbs([]);
+  const tiles = Object.entries(ORG).map(([code, p]) => {
+    const unidades = Object.keys(p.unidades);
+    const lineas = unidades.reduce((n,u) => n + p.unidades[u].lineas.length, 0);
+    return `<a class="tile country" href="#/${code}">
+      <img class="flag" src="${BANDERAS[code]}" alt="Bandera de ${esc(p.nombre)}">
+      <span class="big">${esc(p.nombre)}</span>
+      <span class="meta"><b>${unidades.length}</b> unidades de negocio · ${unidades.join(', ')}</span>
+      <span class="meta">${lineas ? `<b>${lineas}</b> líneas con checklist` : 'Checklists por cargar'}</span>
+    </a>`;
+  }).join('');
+  $('#view').innerHTML = `<h2 class="lead">¿Dónde estás hoy?</h2>
+    <p class="sub">Elige el país, la unidad de negocio y la línea para llenar el checklist de mantenimiento autónomo del turno.</p>
+    <div class="tiles countries">${tiles}</div>`;
+}
+function vistaUnidades(pais){
+  const p = ORG[pais];
+  crumbs([{t:p.nombre, h:`#/${pais}`}]);
+  const tiles = Object.entries(p.unidades).map(([u, cfg]) => {
+    const n = cfg.lineas.length, act = cfg.lineas.reduce((s,l) => s + lineItems(l).length, 0);
+    return `<a class="tile${n ? '' : ' off'}" href="#/${pais}/${encodeURIComponent(u)}" ${n ? '' : 'aria-disabled="true" tabindex="-1"'}>
+      <span class="code">${pais}</span>
+      <span class="big">${esc(u)}</span>
+      <span class="meta">${n ? `<b>${n}</b> líneas · <b>${act}</b> actividades` : 'Checklists por cargar'}</span>
+    </a>`;
+  }).join('');
+  $('#view').innerHTML = `<h2 class="lead with-flag"><img class="flag-sm" src="${BANDERAS[pais]}" alt="">${esc(p.nombre)}</h2><p class="sub">Unidades de negocio</p><div class="tiles">${tiles}</div>`;
+}
+function vistaLineas(pais, unidad){
+  const p = ORG[pais], cfg = p.unidades[unidad];
+  crumbs([{t:p.nombre, h:`#/${pais}`}, {t:unidad, h:`#/${pais}/${encodeURIComponent(unidad)}`}]);
+  const tiles = cfg.lineas.map(l => {
+    const its = lineItems(l);
+    const u = ultimos(l)[0], draft = store.get(`autonomo:borrador2:${pais}|${unidad}|${l}`, null);
+    const avance = draft ? Object.values(draft.resp||{}).filter(r => r.r).length : 0;
+    return `<a class="tile line" href="#/${pais}/${encodeURIComponent(unidad)}/${encodeURIComponent(l)}">
+      <span class="big">${esc(l)}</span>
+      <span class="meta">${esc(UT[l]||'')}</span>
+      <span class="meta"><b>${its.length}</b> actividades · frecuencia semanal</span>
+      ${avance ? `<span class="meta">Borrador guardado: <b>${avance}/${its.length}</b> respondidas</span>` : ''}
+      <span class="last">${u ? `<span>Último: <b>${fmtFecha(u.fechaRevision)}</b></span><span><b>${u.cumplimiento}%</b> · ${u.hallazgos} hallazgo${u.hallazgos==1?'':'s'}</span>` : '<span>Sin registros todavía</span>'}</span>
+    </a>`;
+  }).join('');
+  $('#view').innerHTML = `<h2 class="lead">${esc(unidad)} ${esc(p.nombre)}</h2><p class="sub">Elige la línea para llenar su checklist semanal.</p><div class="tiles">${tiles}</div>`;
+}
+
+/* ---------- formulario ---------- */
+let F = null;   // estado del formulario activo
+const numOp = n => String(n * 10).padStart(4, '0');
+
+function vistaFormulario(pais, unidad, linea){
+  const p = ORG[pais];
+  document.body.classList.add('form-mode');
+  crumbs([{t:p.nombre, h:`#/${pais}`}, {t:unidad, h:`#/${pais}/${encodeURIComponent(unidad)}`}, {t:'Línea ' + linea}]);
+  const key = `autonomo:borrador2:${pais}|${unidad}|${linea}`;
+  const items = lineItems(linea);
+  const base = { meta:{ fecha:hoy(), turno:'', operador:'', supervisor:'', estado:'', alcance:'todas', obsGeneral:'' }, resp:{} };
+  const saved = store.get(key, null);
+  F = { pais, unidad, linea, key, items, st: saved && saved.meta ? saved : base };
+  const m = F.st.meta;
+
+  let n = 0;
+  const filas = DATA[linea].map((s, si) => {
+    const rows = s.items.map((it, ii) => itemHTML({...it, sec:s.name, id:`s${si}i${ii}`}, ++n)).join('');
+    return `<tr class="secrow" data-sec="${si}" id="sec-${si}"><th colspan="5"><span class="step">${si+1}</span><span>${esc(s.name)}</span><span class="cnt"></span></th></tr>${rows}`;
+  }).join('');
+
+  $('#view').innerHTML = `
+  <div class="sheet">
+    <div class="sheet-head">
+      <div>
+        <div class="doc-type">Orden de trabajo · Mantenimiento autónomo</div>
+        <h2>Línea ${esc(linea)}</h2>
+        <div class="ut">${esc(unidad)} ${esc(p.nombre)} · UT ${esc(UT[linea]||'')}</div>
+      </div>
+      <div class="doc-meta"><span>Inspección / Limpieza / Lubricación</span><span>${items.length} actividades</span></div>
+    </div>
+
+    <table class="hdr" aria-label="Datos del checklist">
+      <tr>
+        <th><label for="m-fecha">Fecha de revisión <em>*</em></label></th>
+        <td><input class="inp" type="date" id="m-fecha" data-m="fecha" value="${esc(m.fecha)}"></td>
+        <th>Turno <em>*</em></th>
+        <td><div class="seg" data-mseg="turno">${['1','2','3'].map(t => `<button type="button" data-v="${t}" class="${m.turno===t?'on':''}">${t}</button>`).join('')}</div></td>
+      </tr>
+      <tr>
+        <th><label for="m-op">Operador(es) <em>*</em></label></th>
+        <td><input class="inp" id="m-op" data-m="operador" value="${esc(m.operador)}" placeholder="Nombre de quien hace el checklist"></td>
+        <th><label for="m-sup">Supervisor / líder</label></th>
+        <td><input class="inp" id="m-sup" data-m="supervisor" value="${esc(m.supervisor)}" placeholder="Opcional"></td>
+      </tr>
+      <tr>
+        <th>Estado del equipo</th>
+        <td class="fixed">En funcionamiento y parada</td>
+        <th>Frecuencia</th>
+        <td class="fixed">Semanal</td>
+      </tr>
+    </table>
+
+    <nav class="flow" aria-label="Recorrido de la línea">
+      <span class="flow-t">Recorrido de la línea</span>
+      <div class="flow-steps">${DATA[linea].map((s, si) => `<button type="button" class="fstep" data-go="${si}"><b>${si+1}</b>${esc(s.name)}</button>`).join('<span class="arr" aria-hidden="true">›</span>')}</div>
+    </nav>
+
+    <div class="tbl-wrap">
+      <table class="acts" id="secs">
+        <thead><tr>
+          <th class="c-no">No. Oper</th><th class="c-eq">Equipo</th><th class="c-act">Actividad</th><th class="c-res">Verificación</th><th class="c-obs">Observación</th>
+        </tr></thead>
+        <tbody>${filas}</tbody>
+      </table>
+    </div>
+
+    <div class="obs-gen">
+      <label class="f" for="m-obs">Observaciones generales del turno</label>
+      <textarea class="inp" id="m-obs" data-m="obsGeneral" placeholder="Opcional">${esc(m.obsGeneral)}</textarea>
+    </div>
+  </div>`;
+
+  $('#dockSlot').innerHTML = `<div class="dock"><div class="dock-in">
+    <div class="prog"><div class="nums" id="nums"></div><div class="track"><i id="bar"></i></div></div>
+    <button class="btn pri" id="enviar" type="button">Enviar checklist</button>
+  </div></div>`;
+
+  items.forEach(it => { const r = F.st.resp[it.id]; if (r && r.r) aplicarRespuesta(it.id, r.r, true); });
+  aplicarAlcance();
+  enlazarFormulario();
+  actualizarProgreso();
+}
+
+function itemHTML(it, n){
+  const r = (F.st.resp[it.id]) || {};
+  const h = r.h || {};
+  const tf = h.tipoFalla || inferFalla(it.d + ' ' + it.c);
+  const th = h.tipoHallazgo || inferTipoHallazgo(it.d);
+  return `<tr class="item" data-id="${it.id}" data-f="${it.f.join('')}">
+    <td class="c-no">${numOp(n)}</td>
+    <td class="c-eq">${esc(it.c)}</td>
+    <td class="c-act"><span class="mini">${esc(it.c)}</span>${esc(it.d)}</td>
+    <td class="c-res"><div class="ans" role="group" aria-label="Verificación">
+      <button type="button" class="c" data-r="C" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 8.5l3.2 3L13 4.5"/></svg>Cumple</button>
+      <button type="button" class="n" data-r="N" aria-pressed="false"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 4l8 8M12 4l-8 8"/></svg>No cumple</button>
+    </div></td>
+    <td class="c-obs"><input class="inp" data-k="obs" value="${esc(r.obs||'')}" placeholder="Opcional"></td>
+  </tr>
+  <tr class="hzrow" data-id="${it.id}"><td colspan="5">
+    <div class="hz" aria-label="Hallazgo">
+      <div class="hz-head">
+        <h4>No cumple · ${esc(it.d)}</h4>
+        <div class="hz-auto"><span>Línea: <b>${esc(F.linea)}</b></span><span>Frecuencia: <b>Semanal</b></span><span>Detectó: <b>Producción</b></span><span>Status: <b class="st">Abierta</b></span></div>
+      </div>
+      <div class="grid">
+        <div class="full"><label class="f">¿Por qué no cumple? <em>*</em></label><div class="chips" data-hpick="motivo">${MOTIVOS.map(t => `<button type="button" class="chip${h.motivo===t?' on':''}" data-v="${t}">${t}</button>`).join('')}</div></div>
+        <div class="full"><label class="f">Descripción de la falla <em>*</em></label><textarea class="inp" data-h="observacion" placeholder="Qué encontraste y dónde: ej. gotea aceite en la manguera de entrada del cilindro">${esc(h.observacion||'')}</textarea></div>
+        <div><label class="f">Equipo <em>*</em></label><input class="inp" data-h="equipo" value="${esc(h.equipo!=null ? h.equipo : it.c)}"></div>
+        <div><label class="f">Subequipo (opcional)</label><input class="inp" data-h="subequipo" value="${esc(h.subequipo||'')}" placeholder="Ej. Acabado"></div>
+        <div><label class="f">Tipo de falla <em>*</em></label><div class="chips" data-hchips="tipoFalla">${TIPOS_FALLA.map(t => `<button type="button" class="chip${tf.includes(t)?' on':''}" data-v="${t}">${t}</button>`).join('')}</div></div>
+        <div><label class="f">Criticidad</label><select class="inp" data-h="criticidad">${CRITICIDAD.map(t => `<option${t===(h.criticidad||'Media')?' selected':''}>${t}</option>`).join('')}</select></div>
+        <div class="full"><label class="f">Evidencia o comentarios</label><input class="inp" data-h="evidencia" value="${esc(h.evidencia||'')}" placeholder="Opcional"></div>
+      </div>
+      <div class="follow">No. de aviso, No. de OT, acción y seguimiento, responsable de cierre, fecha compromiso y fecha de cierre los completa mantenimiento.</div>
+    </div>
+  </td></tr>`;
+}
+
+function getResp(id){
+  if (!F.st.resp[id]) F.st.resp[id] = {};
+  return F.st.resp[id];
+}
+function hDefaults(it){
+  return { motivo:'', equipo: it.c, subequipo:'', observacion:'', tipoFalla: inferFalla(it.d + ' ' + it.c), tipoHallazgo: inferTipoHallazgo(it.d), criticidad:'Media', evidencia:'' };
+}
+function aplicarRespuesta(id, r, silencioso){
+  const el = $(`.item[data-id="${id}"]`); if (!el) return;
+  const it = F.items.find(i => i.id === id);
+  const resp = getResp(id);
+  resp.r = r;
+  if (r === 'N' && !resp.h) resp.h = hDefaults(it);
+  el.classList.toggle('no', r === 'N');
+  el.classList.toggle('ok', r === 'C');
+  el.classList.remove('missing');
+  el.querySelectorAll('.ans button').forEach(b => { const on = b.dataset.r === r; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  if (!silencioso){ guardar(); actualizarProgreso(); }
+}
+let tGuardar;
+function guardar(){ clearTimeout(tGuardar); tGuardar = setTimeout(() => store.set(F.key, F.st), 250); }
+
+let enlazado = false;
+function enlazarFormulario(){
+  $('#enviar').onclick = enviar;
+  if (enlazado) return; enlazado = true;
+  const v = $('#view');
+  v.addEventListener('click', e => {
+    if (!F || !document.getElementById('secs')) return;
+    const a = e.target.closest('.ans button');
+    if (a){ const id = a.closest('[data-id]').dataset.id; const cur = (F.st.resp[id]||{}).r; aplicarRespuesta(id, cur === a.dataset.r ? null : a.dataset.r); return; }
+    const pick = e.target.closest('[data-hpick] .chip');
+    if (pick){
+      const grp = pick.parentNode, id = pick.closest('[data-id]').dataset.id, resp = getResp(id);
+      resp.h = resp.h || hDefaults(F.items.find(i => i.id === id));
+      grp.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === pick));
+      resp.h[grp.dataset.hpick] = pick.dataset.v;
+      grp.classList.remove('bad'); guardar(); return;
+    }
+    const chip = e.target.closest('[data-hchips] .chip');
+    if (chip){
+      chip.classList.toggle('on');
+      const id = chip.closest('[data-id]').dataset.id, h = getResp(id).h;
+      h.tipoFalla = [...chip.parentNode.querySelectorAll('.chip.on')].map(c => c.dataset.v);
+      chip.parentNode.classList.remove('bad'); guardar(); return;
+    }
+    const go = e.target.closest('[data-go]');
+    if (go){ const r = document.getElementById('sec-' + go.dataset.go); if (r) r.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    const sb = e.target.closest('[data-mseg] button');
+    if (sb){
+      const grp = sb.parentNode, k = grp.dataset.mseg;
+      grp.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === sb));
+      grp.classList.remove('bad');
+      F.st.meta[k] = sb.dataset.v;
+      if (k === 'alcance') { aplicarAlcance(); actualizarProgreso(); }
+      guardar(); return;
+    }
+  });
+  v.addEventListener('input', e => {
+    if (!F || !document.getElementById('secs')) return;
+    const t = e.target;
+    t.classList.remove('bad');
+    if (t.dataset.m){ F.st.meta[t.dataset.m] = t.value; guardar(); return; }
+    const row = t.closest('[data-id]'); if (!row) return;
+    const id = row.dataset.id, resp = getResp(id);
+    if (t.dataset.k === 'obs') resp.obs = t.value;
+    if (t.dataset.h){ resp.h = resp.h || hDefaults(F.items.find(i => i.id === id)); resp.h[t.dataset.h] = t.value; }
+    guardar();
+  });
+  v.addEventListener('change', e => { if (e.target.matches('select[data-h]')) e.target.dispatchEvent(new Event('input', {bubbles:true})); });
+}
+function enAlcance(it){ return true; }   // una sola frecuencia: semanal
+function aplicarAlcance(){
+  F.items.forEach(it => document.querySelectorAll(`[data-id="${it.id}"]`).forEach(r => r.classList.toggle('hide', !enAlcance(it))));
+  document.querySelectorAll('tr.secrow').forEach(s => {
+    const vis = F.items.some(i => i.id.startsWith(`s${s.dataset.sec}i`) && enAlcance(i));
+    s.classList.toggle('hide', !vis);
+  });
+}
+function actualizarProgreso(){
+  const vis = F.items.filter(enAlcance);
+  const resp = vis.filter(i => (F.st.resp[i.id]||{}).r);
+  const c = vis.filter(i => (F.st.resp[i.id]||{}).r === 'C').length;
+  const n = vis.filter(i => (F.st.resp[i.id]||{}).r === 'N').length;
+  const pct = vis.length ? Math.round(resp.length / vis.length * 100) : 0;
+  $('#bar').style.width = pct + '%';
+  $('#nums').innerHTML = `<span><b>${resp.length}/${vis.length}</b> respondidas</span><span class="k-ok"><b>${c}</b> cumple</span><span class="k-no"><b>${n}</b> no cumple</span>`;
+  document.querySelectorAll('tr.secrow').forEach(s => {
+    const its = F.items.filter(i => i.id.startsWith(`s${s.dataset.sec}i`) && enAlcance(i));
+    const ok = its.filter(i => (F.st.resp[i.id]||{}).r).length;
+    const nn = its.filter(i => (F.st.resp[i.id]||{}).r === 'N').length;
+    s.querySelector('.cnt').innerHTML = `${ok}/${its.length}${nn ? `<span class="nf">${nn} no cumple</span>` : ''}`;
+    const fs = document.querySelector(`.fstep[data-go="${s.dataset.sec}"]`);
+    if (fs){ fs.classList.toggle('full', ok === its.length && its.length > 0); fs.classList.toggle('has-no', nn > 0); }
+  });
+}
+
+/* ---------- validar y enviar ---------- */
+function validar(){
+  const m = F.st.meta, errores = [];
+  let primero = null;
+  const marcar = (el, msg) => { if (el) { el.classList.add('bad'); if (!primero) primero = el; } errores.push(msg); };
+  if (!m.fecha) marcar($('#m-fecha'), 'Falta la fecha de revisión');
+  if (!m.turno) marcar($('[data-mseg="turno"]'), 'Falta el turno');
+  if (!String(m.operador).trim()) marcar($('#m-op'), 'Falta el operador');
+  F.items.filter(enAlcance).forEach(it => {
+    const r = F.st.resp[it.id] || {}, el = $(`.item[data-id="${it.id}"]`), hz = $(`.hzrow[data-id="${it.id}"]`);
+    if (!r.r){ el.classList.add('missing'); if (!primero) primero = el; errores.push('x'); return; }
+    if (r.r === 'N'){
+      const h = r.h || {};
+      if (!h.motivo) marcar(hz.querySelector('[data-hpick="motivo"]'), 'Falta indicar por qué no cumple');
+      if (!String(h.equipo||'').trim()) marcar(hz.querySelector('[data-h="equipo"]'), 'Falta el equipo');
+      if (!String(h.observacion||'').trim()) marcar(hz.querySelector('[data-h="observacion"]'), 'Falta la descripción de la falla');
+      if (!(h.tipoFalla||[]).length) marcar(hz.querySelector('[data-hchips]'), 'Falta el tipo de falla');
+    }
+  });
+  if (primero) primero.scrollIntoView({behavior:'smooth', block:'center'});
+  return errores;
+}
+function construirEnvio(){
+  const m = F.st.meta, vis = F.items.filter(enAlcance), id = uid('CHK'), ahora = new Date().toISOString();
+  const operador = m.operador.trim();
+  const detalle = vis.map(it => { const r = F.st.resp[it.id]; return {
+    checklistId:id, fechaRevision:m.fecha, pais:ORG[F.pais].nombre, unidad:F.unidad, linea:F.linea,
+    seccion:it.sec, equipo:it.c, actividad:it.d, frecuencia:'Semanal',
+    resultado: r.r === 'C' ? 'Cumple' : 'No cumple', observacion:(r.obs||'').trim() }; });
+  const hallazgos = vis.filter(it => F.st.resp[it.id].r === 'N').map((it, k) => { const r = F.st.resp[it.id], h = r.h; return {
+    id: id.replace('CHK','HZ') + '-' + String(k+1).padStart(2,'0'), checklistId:id,
+    status:'Abierta', fechaRevision:m.fecha, motivo:h.motivo, pais:ORG[F.pais].nombre, unidad:F.unidad, linea:F.linea,
+    equipo:h.equipo.trim(), subequipo:(h.subequipo||'').trim(), observacion:h.observacion.trim(),
+    actividad:it.d, tipoFalla:h.tipoFalla, noAviso:'', noOT:'', tipoHallazgo: MOTIVO_A_TIPO[h.motivo] || h.tipoHallazgo || inferTipoHallazgo(it.d), criticidad:h.criticidad,
+    quienDetecto:'Producción', operador, frecuencia:'Semanal',
+    accion:'', responsableCierre:'', fechaCompromiso:'', fechaCierre:'',
+    evidencia:[(h.evidencia||'').trim(), (r.obs||'').trim()].filter(Boolean).join(' · '), fechaRegistro:ahora }; });
+  const cumple = detalle.filter(d => d.resultado === 'Cumple').length;
+  const checklist = { id, fechaRegistro:ahora, fechaRevision:m.fecha, pais:ORG[F.pais].nombre, unidad:F.unidad, linea:F.linea, ut:UT[F.linea]||'',
+    turno:m.turno, operador, supervisor:(m.supervisor||'').trim(), estadoEquipo:'En funcionamiento y parada',
+    alcance:'Semanal',
+    actividades:detalle.length, cumple, noCumple:detalle.length-cumple,
+    cumplimiento: detalle.length ? Math.round(cumple/detalle.length*1000)/10 : 0,
+    hallazgos:hallazgos.length, obsGeneral:(m.obsGeneral||'').trim() };
+  return { checklist, detalle, hallazgos };
+}
+async function enviar(){
+  const err = validar();
+  if (err.length){
+    const faltan = err.filter(e => e === 'x').length;
+    toast(faltan ? `Faltan ${faltan} actividades por responder` : err.find(e => e !== 'x'));
+    return;
+  }
+  const btn = $('#enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
+  const envio = construirEnvio();
+  const h = store.get(HIST_KEY, []);
+  h.unshift({ id:envio.checklist.id, linea:F.linea, fechaRevision:envio.checklist.fechaRevision, fechaRegistro:envio.checklist.fechaRegistro, cumplimiento:envio.checklist.cumplimiento, hallazgos:envio.checklist.hallazgos, enviado:false });
+  store.set(HIST_KEY, h.slice(0,80));
+  let ok = false, motivo = '';
+  try { await api('registrarChecklist', envio); ok = true; conectado = true; marcarHistorial(envio.checklist.id, true); }
+  catch(e){ motivo = e.message; const p = store.get(PEND_KEY, []); p.push(envio); store.set(PEND_KEY, p); }
+  store.del(F.key);
+  pintarConexion();
+  vistaResultado(envio, ok, motivo);
+}
+
+function vistaResultado(envio, ok, motivo){
+  document.body.classList.remove('form-mode');
+  const c = envio.checklist;
+  $('#dockSlot').innerHTML = '';
+  crumbs([{t:ORG[F.pais].nombre, h:`#/${F.pais}`}, {t:F.unidad, h:`#/${F.pais}/${encodeURIComponent(F.unidad)}`}, {t:'Línea ' + F.linea + ' · resultado'}]);
+  const msg = ok
+    ? `<div class="status-msg">Checklist enviado. ${c.hallazgos ? `${c.hallazgos} hallazgo${c.hallazgos==1?'':'s'} quedaron registrados como <b>Abierta</b> para seguimiento de mantenimiento.` : 'Sin hallazgos.'}</div>`
+    : `<div class="status-msg warn">${motivo === 'sin-servidor' ? 'No hay servidor configurado: el checklist quedó guardado en este dispositivo.' : 'No se pudo enviar: el checklist quedó guardado en este dispositivo y se enviará solo al recuperar conexión.'} También puedes descargarlo en CSV.</div>`;
+  const lista = envio.hallazgos.length ? `<ul class="hz-list">${envio.hallazgos.map(h => `<li><div class="t">${esc(h.motivo)} · ${esc(h.equipo)}${h.subequipo ? ' · ' + esc(h.subequipo) : ''}</div><div>${esc(h.observacion)}</div><div class="m">Línea ${esc(h.linea)} · ${esc(h.tipoFalla.join(', '))} · Criticidad ${esc(h.criticidad)}</div></li>`).join('')}</ul>` : '<p class="empty">Todas las actividades cumplen.</p>';
+  $('#view').innerHTML = `
+  <div class="done">
+    <section class="card">
+      <div class="score">${c.cumplimiento}<small>%</small></div>
+      <div style="color:var(--muted)">de cumplimiento · ${c.cumple} de ${c.actividades} actividades</div>
+      ${msg}
+      <dl class="kv">
+        <dt>Línea</dt><dd>${esc(c.linea)} · ${esc(c.unidad)} ${esc(c.pais)}</dd>
+        <dt>Fecha</dt><dd>${fmtFecha(c.fechaRevision)} · Turno ${esc(c.turno)}</dd>
+        <dt>Operador</dt><dd>${esc(c.operador)}</dd>
+        <dt>Estado</dt><dd>${esc(c.estadoEquipo)}</dd>
+        <dt>Frecuencia</dt><dd>Semanal</dd>
+        <dt>Folio</dt><dd>${esc(c.id)}</dd>
+      </dl>
+      <div class="actions">
+        <a class="btn pri" href="#/${F.pais}/${encodeURIComponent(F.unidad)}" style="text-decoration:none;display:inline-flex;align-items:center">Ir a líneas</a>
+        <button class="btn sec" id="csv" type="button">Descargar CSV</button>
+      </div>
+    </section>
+    <section class="card">
+      <h3 style="font-family:var(--head);font-size:22px;margin:0 0 6px">Hallazgos (${envio.hallazgos.length})</h3>
+      ${lista}
+    </section>
+  </div>`;
+  $('#csv').onclick = () => descargarCSV(envio);
+  window.scrollTo(0,0);
+}
+function descargarCSV(envio){
+  const q = v => '"' + String(Array.isArray(v) ? v.join(', ') : (v==null?'':v)).replace(/"/g,'""') + '"';
+  const c = envio.checklist;
+  const filas = [['Folio','Fecha revisión','Turno','Línea','Sección','Equipo','Actividad','Frecuencia','Resultado','Observación','Por qué no cumple','Descripción de la falla','Tipo de falla','Tipo de hallazgo','Criticidad']];
+  envio.detalle.forEach(d => {
+    const h = envio.hallazgos.find(x => x.actividad === d.actividad && x.equipo && d.resultado === 'No cumple') || {};
+    filas.push([c.id, c.fechaRevision, c.turno, c.linea, d.seccion, d.equipo, d.actividad, d.frecuencia, d.resultado, d.observacion, h.motivo||'', h.observacion||'', h.tipoFalla||'', h.tipoHallazgo||'', h.criticidad||'']);
+  });
+  const blob = new Blob(['\ufeff' + filas.map(r => r.map(q).join(',')).join('\r\n')], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Checklist_${c.linea.replace(/[^\w]/g,'')}_${c.fechaRevision}.csv`; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+/* ---------- arranque ---------- */
+if (LOGO_SRC) $('#logoSlot').innerHTML = `<img src="${LOGO_SRC}" alt="Multi">`;
+window.addEventListener('online', () => enviarPendientes(false));
+route();
+pintarConexion();
+cargarResumen().then(() => enviarPendientes(false));
+</script>
+</body>
+</html>
