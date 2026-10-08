@@ -74,6 +74,44 @@ main{max-width:1080px;margin:0 auto;padding:10px 20px 120px}
 .tile.country .big{padding-right:124px}
 .lead.with-flag{display:flex;align-items:center;gap:14px}
 .flag-sm{width:56px;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.22)}
+.drop{display:block;margin:16px 22px;border:2px dashed #A1A1AA;border-radius:6px;padding:22px;text-align:center;cursor:pointer;background:#FAFAFA}
+.drop:hover,.drop.over{border-color:var(--red);background:#FFF5F6}
+.drop.busy{opacity:.6;pointer-events:none}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.drop-t{display:block;font-family:var(--head);font-weight:700;font-size:20px;color:#18181B}
+.drop-s{display:block;margin-top:4px;font-size:14px;color:#52525B}
+.adm-linea{border-top:2px solid #18181B;padding:14px 22px 18px}
+.adm-lhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.adm-lhead label{display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:700;font-size:20px}
+.adm-lhead .adm-nombre{width:180px;font-family:var(--head);font-weight:700;font-size:20px}
+.adm-cnt{font-size:14px;color:#3F3F46}
+.adm-cnt b{font-size:18px}
+.adm-cnt.ok b{color:#18181B}
+.adm-cnt.mas b{color:var(--red)}
+.adm-warn{font-size:13px;font-weight:600;color:#fff;background:var(--red);padding:3px 10px;border-radius:999px}
+.adm-quitarl{margin-left:auto;background:none;border:0;color:#71717A;text-decoration:underline;font-size:13px}
+.adm-files{display:flex;flex-wrap:wrap;gap:6px 18px;margin:10px 0;font-size:14px;color:#3F3F46}
+.adm-files small{color:#71717A}
+.adm-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0 12px}
+.adm-tools .btn:disabled{opacity:.4;cursor:default}
+.adm-hint{font-size:13px;color:#71717A;flex:1 1 260px}
+.adm-sec{display:flex;align-items:center;gap:10px;background:#FBE5E8;color:#7A0011;font-family:var(--head);font-size:17px;padding:6px 10px;margin-top:8px}
+.adm-mov{margin-left:auto;display:flex;gap:4px}
+.adm-mov button{width:30px;height:30px;border:1px solid #F2BCC4;background:#fff;color:#7A0011;border-radius:4px;font-weight:700}
+.adm-row{display:grid;grid-template-columns:22px 46px minmax(0,1fr) minmax(0,2.6fr) 110px 40px;gap:8px;align-items:start;padding:6px 0;border-bottom:1px solid #F0F0F2}
+.adm-row .inp{min-height:40px;padding:8px 10px}
+.adm-row textarea.inp{resize:vertical;overflow:hidden;line-height:1.35}
+.adm-chk{width:18px;height:18px;margin-top:11px;accent-color:#18181B}
+.adm-row .nl-no{padding-top:11px}
+.adm-f{font-size:12px;color:#71717A;padding-top:12px}
+.nl-no{font-size:13px;color:#71717A;font-variant-numeric:tabular-nums}
+.nl-x{width:40px;height:40px;border:1px solid #C4C4CC;background:#fff;border-radius:4px;font-size:22px;line-height:1;color:#71717A}
+.nl-x:hover{border-color:var(--red);color:var(--red)}
+.btn.sec.dark{background:#fff;color:#18181B;border:1px solid #18181B;font-size:16px;min-height:42px;padding:8px 16px}
+.btn.sec.dark:hover:not(:disabled){background:#18181B;color:#fff}
+.adm-link{margin-top:36px;text-align:center;font-size:13px}
+.adm-link a{color:var(--dim)}
+.adm-link a:hover{color:#fff}
 .tile.off{opacity:.55;pointer-events:none}
 .tile.off .meta{color:var(--dim)}
 .tile .last{display:flex;justify-content:space-between;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
@@ -257,6 +295,15 @@ body.form-mode .toast{background:#18181B;color:#fff}
   tr.hzrow>td{display:block;padding:0 10px 12px}
 }
 @media (max-width:640px){
+  .drop{margin:14px}
+  .adm-linea{padding:14px}
+  .adm-row{grid-template-columns:22px minmax(0,1fr) 40px;padding:10px 0}
+  .adm-row .nl-no{grid-column:2;padding-top:0}
+  .adm-row [data-k="e"]{grid-column:2}
+  .adm-row [data-k="a"]{grid-column:1/3}
+  .adm-row .adm-f{grid-column:1/3;padding-top:0}
+  .adm-row .nl-x{grid-column:3;grid-row:1}
+  .adm-lhead .adm-nombre{width:140px}
   .top-in{padding:14px 16px 12px}
   .logo img{height:38px;width:38px}
   .tile.country .flag{width:76px;right:16px;top:16px}
@@ -448,6 +495,7 @@ function route(){
   document.body.classList.remove('form-mode');
   const [, pais, unidad, linea] = RUTA.replace(/^#/,'').split('/').map(decodeURIComponent);
   $('#dockSlot').innerHTML = '';
+  if (pais === 'admin') return vistaAdmin();
   if (pais && ORG[pais] && unidad && ORG[pais].unidades[unidad] && linea && CAT[`${pais}|${unidad}|${linea}`]) return vistaFormulario(pais, unidad, linea);
   if (pais && ORG[pais] && unidad && ORG[pais].unidades[unidad]) return vistaLineas(pais, unidad);
   if (pais && ORG[pais]) return vistaUnidades(pais);
@@ -484,7 +532,8 @@ function vistaInicio(){
   }).join('');
   $('#view').innerHTML = `<h2 class="lead">¿Dónde estás hoy?</h2>
     <p class="sub">Elige el país, la unidad de negocio y la línea para llenar el checklist de mantenimiento autónomo del turno.</p>
-    <div class="tiles countries">${tiles}</div>`;
+    <div class="tiles countries">${tiles}</div>
+    <p class="adm-link"><a href="#/admin">Cargar actividades (administrador)</a></p>`;
 }
 function vistaUnidades(pais){
   const p = ORG[pais];
@@ -508,13 +557,394 @@ function vistaLineas(pais, unidad){
     const avance = draft ? Object.values(draft.resp||{}).filter(r => r.r).length : 0;
     return `<a class="tile line" href="#/${pais}/${encodeURIComponent(unidad)}/${encodeURIComponent(l)}">
       <span class="big">${esc(l)}</span>
-      <span class="meta">${esc(UT[l]||'')}</span>
+      <span class="meta">${esc(unidad === 'TUBOACERO' && pais === 'GT' ? (UT[l]||'') : '')}</span>
       <span class="meta"><b>${its.length}</b> actividades · frecuencia semanal</span>
       ${avance ? `<span class="meta">Borrador guardado: <b>${avance}/${its.length}</b> respondidas</span>` : ''}
       <span class="last">${u ? `<span>Último: <b>${fmtFecha(u.fechaRevision)}</b></span><span><b>${u.cumplimiento}%</b> · ${u.hallazgos} hallazgo${u.hallazgos==1?'':'s'}</span>` : '<span>Sin registros todavía</span>'}</span>
     </a>`;
   }).join('');
   $('#view').innerHTML = `<h2 class="lead">${esc(unidad)} ${esc(p.nombre)}</h2><p class="sub">Elige la línea para llenar su checklist semanal.</p><div class="tiles">${tiles}</div>`;
+}
+
+/* =====================================================================
+   ADMINISTRADOR: cargar actividades desde los Word / Excel de las OT
+   Junta diario + semanal sin repetir (igual que se hizo con Tuboacero),
+   deja revisar, juntar y quitar, y guarda en la hoja "Actividades".
+   ===================================================================== */
+const LIBS = {
+  zip:  'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
+  xlsx: 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
+};
+const libCargada = {};
+function cargarLib(n){
+  if (libCargada[n]) return libCargada[n];
+  return libCargada[n] = new Promise((res, rej) => {
+    const s = document.createElement('script'); s.src = LIBS[n];
+    s.onload = res;
+    s.onerror = () => { delete libCargada[n]; rej(new Error('No se pudo cargar el lector de archivos. Revisa la conexión.')); };
+    document.head.appendChild(s);
+  });
+}
+
+/* ---------- limpieza de textos (mismas reglas que Tuboacero) ---------- */
+const FIXES = [[/\bInpecci/g,'Inspecci'],[/\binpecci/g,'inspecci'],[/\bRemetalzadora/g,'Remetalizadora'],[/\baprete\b/g,'apriete'],[/\bAprete\b/g,'Apriete'],[/\s+/g,' ']];
+function fixT(s){ s = String(s||''); FIXES.forEach(([a,b]) => s = s.replace(a,b)); return s.replace(/ -/g,' ').replace(/^[\s.,;:\-–•*]+|[\s.,;:\-–•*]+$/g,''); }
+function capT(s){ s = fixT(s); if (s && (s === s.toUpperCase() || s === s.toLowerCase())) s = s.charAt(0).toUpperCase() + s.slice(1).toLowerCase(); return s; }
+const STOPW = new Set(['de','del','la','el','los','las','en','y','a','al']);
+function normT(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\(.*?\)/g,'').replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w => w && !STOPW.has(w)).join(' '); }
+function secKey(s){ return normT(s).replace(/\bdesbobinadora\b/g,'desbobinador').replace(/\brollos\b/g,'rodillos').replace(/\bperfiladora soldadora\b/g,'perfiladora soldadura'); }
+function parecido(a, b){
+  if (a === b) return 1; if (a.length < 2 || b.length < 2) return 0;
+  const m = new Map(); for (let i = 0; i < a.length - 1; i++){ const g = a.substr(i,2); m.set(g, (m.get(g)||0) + 1); }
+  let n = 0; for (let i = 0; i < b.length - 1; i++){ const g = b.substr(i,2), c = m.get(g); if (c > 0){ m.set(g, c-1); n++; } }
+  return 2 * n / (a.length + b.length - 2);
+}
+function nombreLinea(s){
+  let t = String(s||'').replace(/\.(docx|xlsx|xlsm|xls|csv)$/i,'').replace(/\(\d+\)/g,' ');
+  t = t.replace(/\b(ot|orden de trabajo|aut[oó]nomos?|diari[oa]s?|semanal(es)?|mensual(es)?|nuev[oa]|copia|final|v\d+)\b/gi,' ');
+  t = t.replace(/[_]+/g,' ').replace(/\s+/g,' ').replace(/^[\s\-–.]+|[\s\-–.]+$/g,'').trim();
+  return t || 'Línea';
+}
+function freqDe(s){ s = String(s||'').toLowerCase(); return /diari/.test(s) ? 'D' : /mensual/.test(s) ? 'M' : 'S'; }
+const FTXT = { D:'Diaria', S:'Semanal', M:'Mensual' };
+
+/* ---------- lectura de tablas: Word y Excel dan una lista de filas ---------- */
+function filasAItems(rows){
+  // rows: arreglos de textos. Busca el encabezado (Descripción / Actividad) y las secciones.
+  const items = []; let dCol = -1, cCol = -1, fCol = -1, sec = '', ultimo = '';
+  const vacio = v => !String(v||'').trim();
+  rows.forEach(r => {
+    const celdas = r.map(v => String(v == null ? '' : v).trim());
+    const h = celdas.map(v => v.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''));
+    const iDesc = h.findIndex(v => /^descripci|^actividad|^tarea|^inspecci[oó]n a realizar/.test(v));
+    if (iDesc >= 0 && h.filter(v => v).length >= 2){
+      dCol = iDesc;
+      cCol = h.findIndex((v,i) => i !== iDesc && /^operaci|^equipo|^componente|^parte|^sistema|^maquina|^area/.test(v));
+      fCol = h.findIndex(v => /^frecuen/.test(v));
+      return;
+    }
+    if (dCol < 0) return;
+    const desc = celdas[dCol] || '';
+    const llenas = celdas.filter(v => v);
+    if (!desc){
+      // fila de sección: un solo texto (no número) en la fila
+      if (llenas.length === 1 && !/^\d+([.,]\d+)?$/.test(llenas[0])) { sec = capT(llenas[0]); ultimo = ''; }
+      return;
+    }
+    let comp = cCol >= 0 ? celdas[cCol] : '';
+    if (comp) { comp = capT(comp); ultimo = comp; } else comp = ultimo;
+    items.push({ sec, comp, desc, f: fCol >= 0 && celdas[fCol] ? freqDe(celdas[fCol]) : '' });
+  });
+  return items;
+}
+async function leerWord(buf){
+  const z = await JSZip.loadAsync(buf);
+  const f = z.file('word/document.xml'); if (!f) throw new Error('no es un Word válido');
+  const xml = new DOMParser().parseFromString(await f.async('string'), 'application/xml');
+  const W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+  const hijos = (el, n) => [...el.childNodes].filter(x => x.localName === n);
+  const rows = [];
+  [...xml.getElementsByTagNameNS(W, 'tbl')].forEach(tbl => {
+    hijos(tbl, 'tr').forEach(tr => {
+      const fila = [];
+      hijos(tr, 'tc').forEach(tc => {
+        const pr = hijos(tc, 'tcPr')[0], gs = pr && hijos(pr, 'gridSpan')[0];
+        const span = gs ? parseInt(gs.getAttributeNS(W, 'val') || gs.getAttribute('w:val'), 10) || 1 : 1;
+        const txt = [...tc.getElementsByTagNameNS(W, 'p')].map(p => [...p.getElementsByTagNameNS(W, 't')].map(t => t.textContent).join('')).join('\n').trim();
+        fila.push(txt); for (let k = 1; k < span; k++) fila.push('');
+      });
+      rows.push(fila);
+    });
+  });
+  return [{ hoja: '', items: filasAItems(rows) }];
+}
+async function leerExcel(buf){
+  const wb = XLSX.read(buf, { type: 'array' });
+  return wb.SheetNames.map(n => ({ hoja: n, items: filasAItems(XLSX.utils.sheet_to_json(wb.Sheets[n], { header: 1, defval: '', raw: false })) }))
+    .filter(h => h.items.length);
+}
+
+/* ---------- juntar diario + semanal sin repetir (como Tuboacero) ---------- */
+const ORDEN_TUBO = ['desbobinador','empalmadora','acumulador','molino','perfiladora','soldadura','thermatool','perfiladora soldadura','remetalizadora','tren corte','via rodillos','empacadora'];
+function procesarLinea(l){
+  const secs = new Map(), vistos = [];
+  l.archivos.filter(a => a.incluir).forEach(a => a.items.forEach(raw => {
+    const comp = raw.comp || '';
+    const sec = raw.sec || comp || 'General';
+    const k = secKey(sec);
+    if (!secs.has(k)) secs.set(k, { name: sec, items: [] });
+    const desc = String(raw.desc);
+    const partes = (/\n/.test(desc) || /^\s*[-•]/.test(desc)) ? desc.split(/\n\s*[-•]?\s*|^\s*[-•]\s*/).filter(p => p.trim()) : [desc];
+    partes.forEach(p => {
+      p = fixT(p); if (!p) return;
+      p = p.charAt(0).toUpperCase() + p.slice(1);
+      const cN = normT(comp), dN = normT(p), f = raw.f || a.f;
+      const dup = vistos.find(v => v.cN === cN && (v.dN === dN || parecido(v.dN, dN) > 0.92));
+      if (dup){ dup.it.f.add(f); return; }
+      const it = { s: secs.get(k).name, e: comp || sec, a: p, f: new Set([f]) };
+      vistos.push({ cN, dN, it }); secs.get(k).items.push(it);
+    });
+  }));
+  let lista = [...secs.entries()];
+  // si las secciones son las de un molino de tubo, se ordenan en el sentido de la línea
+  const pos = k => ORDEN_TUBO.findIndex(o => k === o || k.startsWith(o));
+  if (lista.filter(([k]) => pos(k) >= 0).length >= 4){
+    let rk = -1;
+    const conRango = lista.map(([k, v], i) => { const p = pos(k); rk = p >= 0 ? p : rk + 0.01; return { k, v, rk, i }; });
+    conRango.sort((a, b) => a.rk - b.rk || a.i - b.i);
+    lista = conRango.map(x => [x.k, x.v]);
+  }
+  let n = 0;
+  l.filas = lista.flatMap(([, v]) => v.items.map(it => ({ id: 'r' + (++n), s: it.s, e: it.e, a: it.a, f: [...it.f].sort().join('') })));
+  l.antes = l.archivos.filter(a => a.incluir).reduce((s, a) => s + a.items.length, 0);
+  l.undo = null;
+}
+
+/* ---------- juntar actividades ---------- */
+function tipoAct(t){
+  t = normT(t);
+  if (/limpi|sopletea|retirar|elimin|barrer|aspir/.test(t)) return 'limpieza';
+  if (/fuga/.test(t)) return 'fugas';
+  if (/engras|lubric|nivel|aceite/.test(t)) return 'engrase';
+  if (/apret|apriet|ajust|torniller/.test(t)) return 'apriete';
+  return 'revision';
+}
+function unirTextos(txts){
+  const t = txts.map(x => fixT(x)).filter(Boolean);
+  return t.map((x, i) => i ? x.charAt(0).toLowerCase() + x.slice(1) : x).join('; ');
+}
+function juntarFilas(l, ids){
+  const sel = l.filas.filter(r => ids.includes(r.id)); if (sel.length < 2) return false;
+  l.undo = JSON.stringify(l.filas);
+  const eqs = [...new Set(sel.map(r => r.e).filter(Boolean))];
+  const nueva = { id: sel[0].id, s: sel[0].s, e: eqs.length > 2 ? sel[0].s : eqs.join(' / '), a: unirTextos(sel.map(r => r.a)), f: [...new Set(sel.map(r => r.f).join(''))].sort().join('') };
+  l.filas = l.filas.filter(r => r === sel[0] || !ids.includes(r.id)).map(r => r === sel[0] ? nueva : r);
+  return true;
+}
+function juntarAuto(l){
+  l.undo = JSON.stringify(l.filas);
+  const grupos = new Map();
+  l.filas.forEach(r => { const k = secKey(r.s) + '|' + normT(r.e) + '|' + tipoAct(r.a); if (!grupos.has(k)) grupos.set(k, []); grupos.get(k).push(r); });
+  const hechos = new Set(), out = [];
+  l.filas.forEach(r => {
+    const k = secKey(r.s) + '|' + normT(r.e) + '|' + tipoAct(r.a);
+    if (hechos.has(k)) return; hechos.add(k);
+    const g = grupos.get(k);
+    out.push(g.length === 1 ? r : { id: r.id, s: r.s, e: r.e, a: unirTextos(g.map(x => x.a)), f: [...new Set(g.map(x => x.f).join(''))].sort().join('') });
+  });
+  l.filas = out;
+}
+
+/* ---------- pantalla ---------- */
+let ADM = null;
+function vistaAdmin(){
+  document.body.classList.add('form-mode');
+  crumbs([{ t: 'Cargar actividades', h: '#/admin' }]);
+  if (!ADM) ADM = { pais: 'GT', unidad: '', clave: '', lineas: [] };
+  const unidades = Object.keys(ORG[ADM.pais].unidades);
+  if (!unidades.includes(ADM.unidad)) ADM.unidad = '';
+  $('#view').innerHTML = `
+  <div class="sheet adm">
+    <div class="sheet-head">
+      <div>
+        <div class="doc-type">Administrador · Mantenimiento autónomo</div>
+        <h2>Cargar actividades</h2>
+        <div class="ut">Sube las OT de autónomos (Word o Excel) y se arma el checklist igual que el de Tuboacero</div>
+      </div>
+      <div class="doc-meta"><span>Diario + semanal sin repetir</span><span>Se guarda en la hoja "Actividades"</span></div>
+    </div>
+    <table class="hdr">
+      <tr>
+        <th>País <em>*</em></th>
+        <td><div class="seg" id="adm-pais">${Object.entries(ORG).map(([c, p]) => `<button type="button" data-v="${c}" class="${ADM.pais===c?'on':''}">${esc(p.nombre)}</button>`).join('')}</div></td>
+        <th>Unidad de negocio <em>*</em></th>
+        <td><div class="seg" id="adm-unidad">${unidades.map(u => `<button type="button" data-v="${esc(u)}" class="${ADM.unidad===u?'on':''}">${esc(u)}</button>`).join('')}</div></td>
+      </tr>
+      <tr>
+        <th><label for="adm-clave">Clave de administrador <em>*</em></label></th>
+        <td><input class="inp" id="adm-clave" type="password" inputmode="numeric" autocomplete="off" value="${esc(ADM.clave)}"></td>
+        <th></th><td></td>
+      </tr>
+    </table>
+    <label class="drop" id="adm-drop">
+      <input type="file" id="adm-file" multiple accept=".docx,.xlsx,.xlsm,.xls,.zip,.csv">
+      <span class="drop-t">Toca para subir archivos o arrástralos aquí</span>
+      <span class="drop-s">Word (.docx), Excel (.xlsx) o el .zip de Drive con una carpeta por línea. Sube el diario y el semanal de cada línea: se juntan solos.</span>
+    </label>
+    <div id="adm-lineas"></div>
+  </div>`;
+  $('#dockSlot').innerHTML = `<div class="dock"><div class="dock-in">
+    <div class="prog"><div class="nums" id="adm-nums"></div></div>
+    <button class="btn pri" id="adm-guardar" type="button">Guardar en la hoja</button>
+  </div></div>`;
+  $('#adm-pais').onclick = e => { const b = e.target.closest('button'); if (!b) return; ADM.pais = b.dataset.v; vistaAdmin(); };
+  $('#adm-unidad').onclick = e => { const b = e.target.closest('button'); if (!b) return; ADM.unidad = b.dataset.v; $('#adm-unidad').classList.remove('bad'); [...$('#adm-unidad').children].forEach(x => x.classList.toggle('on', x === b)); pintarLineasAdm(); };
+  $('#adm-clave').oninput = e => { ADM.clave = e.target.value; e.target.classList.remove('bad'); };
+  $('#adm-file').onchange = e => { leerArchivos([...e.target.files]); e.target.value = ''; };
+  const dz = $('#adm-drop');
+  dz.ondragover = e => { e.preventDefault(); dz.classList.add('over'); };
+  dz.ondragleave = () => dz.classList.remove('over');
+  dz.ondrop = e => { e.preventDefault(); dz.classList.remove('over'); leerArchivos([...e.dataTransfer.files]); };
+  enlazarLineasAdm();
+  $('#adm-guardar').onclick = guardarAdm;
+  pintarLineasAdm();
+}
+
+async function leerArchivos(files){
+  if (!files.length) return;
+  const zona = $('#adm-drop'); zona.classList.add('busy'); zona.querySelector('.drop-t').textContent = 'Leyendo archivos…';
+  const errores = [];
+  try {
+    await cargarLib('zip');
+    const entradas = [], tocadas = new Set();   // {nombre, carpeta, buf}
+    for (const f of files){
+      const n = f.name.toLowerCase();
+      if (n.endsWith('.zip')){
+        const z = await JSZip.loadAsync(await f.arrayBuffer());
+        for (const [ruta, ent] of Object.entries(z.files)){
+          if (ent.dir || /__MACOSX|\/\.|(^|\/)~\$/.test(ruta) || !/\.(docx|xlsx|xlsm|xls|csv)$/i.test(ruta)) continue;
+          const partes = ruta.split('/');
+          entradas.push({ nombre: partes[partes.length-1], carpeta: partes.length > 1 ? partes[partes.length-2] : '', buf: await ent.async('arraybuffer') });
+        }
+      } else if (/\.(docx|xlsx|xlsm|xls|csv)$/i.test(n)) {
+        entradas.push({ nombre: f.name, carpeta: '', buf: await f.arrayBuffer() });
+      } else if (/\.doc$/i.test(n)) {
+        errores.push(`${f.name}: es Word antiguo (.doc). Ábrelo y guárdalo como .docx`);
+      } else errores.push(`${f.name}: tipo de archivo no soportado`);
+    }
+    if (entradas.some(e => /\.(xlsx|xlsm|xls|csv)$/i.test(e.nombre))) await cargarLib('xlsx');
+    for (const ent of entradas){
+      try {
+        const hojas = /\.docx$/i.test(ent.nombre) ? await leerWord(ent.buf) : await leerExcel(ent.buf);
+        if (!hojas.length || !hojas.some(h => h.items.length)) { errores.push(`${ent.nombre}: no encontré la tabla de actividades (falta la columna "Descripción")`); continue; }
+        const varias = hojas.length > 1;
+        hojas.forEach(h => {
+          const hojaEsFrec = /diari|seman|mensual/i.test(h.hoja);
+          const linea = ent.carpeta ? ent.carpeta.trim() : (varias && h.hoja && !hojaEsFrec) ? nombreLinea(h.hoja) : nombreLinea(ent.nombre);
+          const f = hojaEsFrec ? freqDe(h.hoja) : freqDe(ent.nombre);
+          let l = ADM.lineas.find(x => x.nombre.toLowerCase() === linea.toLowerCase());
+          if (!l){ l = { uid: 'L' + Date.now().toString(36) + Math.random().toString(36).slice(2,5), nombre: linea, archivos: [], filas: [] }; ADM.lineas.push(l); }
+          tocadas.add(l);
+          l.archivos.push({ nombre: ent.nombre + (h.hoja && varias ? ' · ' + h.hoja : ''), f, incluir: true, items: h.items });
+        });
+      } catch(err){ errores.push(`${ent.nombre}: ${err.message}`); }
+    }
+    tocadas.forEach(procesarLinea);
+  } catch(err){ errores.push(err.message); }
+  zona.classList.remove('busy'); zona.querySelector('.drop-t').textContent = 'Toca para subir archivos o arrástralos aquí';
+  if (errores.length) toast(errores[0] + (errores.length > 1 ? ` (y ${errores.length-1} más)` : ''));
+  pintarLineasAdm();
+}
+
+function pintarLineasAdm(){
+  const cont = $('#adm-lineas'); if (!cont) return;
+  if (!ADM.lineas.length){ cont.innerHTML = ''; contarAdm(); return; }
+  cont.innerHTML = ADM.lineas.map(l => {
+    const existe = ADM.unidad && CAT[`${ADM.pais}|${ADM.unidad}|${l.nombre}`];
+    let secAnt = null, n = 0;
+    const filas = l.filas.map((r, i) => {
+      const cab = r.s !== secAnt ? (secAnt = r.s, `<div class="adm-sec" data-sec="${esc(r.s)}"><b>${esc(r.s)}</b><span class="adm-mov"><button type="button" data-up="${esc(r.s)}" aria-label="Subir sección">↑</button><button type="button" data-down="${esc(r.s)}" aria-label="Bajar sección">↓</button></span></div>`) : '';
+      return cab + `<div class="adm-row" data-id="${r.id}">
+        <input type="checkbox" class="adm-chk" aria-label="Seleccionar">
+        <span class="nl-no">${numOp(++n)}</span>
+        <input class="inp" data-k="e" value="${esc(r.e)}" aria-label="Equipo">
+        <textarea class="inp" data-k="a" rows="1" aria-label="Actividad">${esc(r.a)}</textarea>
+        <span class="adm-f">${r.f.split('').map(x => FTXT[x] || x).join(' y ')}</span>
+        <button type="button" class="nl-x" data-quitar="${r.id}" aria-label="Quitar">×</button>
+      </div>`;
+    }).join('');
+    const total = l.filas.length, meta = total >= 30 && total <= 40 ? 'ok' : total > 40 ? 'mas' : 'menos';
+    return `<section class="adm-linea" data-l="${l.uid}">
+      <div class="adm-lhead">
+        <label>Línea <input class="inp adm-nombre" value="${esc(l.nombre)}" maxlength="40"></label>
+        <span class="adm-cnt ${meta}"><b>${total}</b> actividades <small>(de ${l.antes} en los archivos)</small></span>
+        ${existe ? `<span class="adm-warn">Ya existe en ${esc(ADM.unidad)}: se reemplazará</span>` : ''}
+        <button type="button" class="adm-quitarl" data-quitarl="1">Quitar línea</button>
+      </div>
+      <div class="adm-files">${l.archivos.map((a, i) => `<label><input type="checkbox" data-incl="${i}" ${a.incluir ? 'checked' : ''}> ${esc(a.nombre)} <small>${FTXT[a.f]} · ${a.items.length} filas</small></label>`).join('')}</div>
+      <div class="adm-tools">
+        <button type="button" class="btn sec dark" data-auto="1">Juntar automático</button>
+        <button type="button" class="btn sec dark" data-juntar="1">Juntar seleccionadas</button>
+        <button type="button" class="btn sec dark" data-undo="1" ${l.undo ? '' : 'disabled'}>Deshacer</button>
+        <span class="adm-hint">Meta: 30 a 40 actividades. "Juntar automático" une las del mismo equipo y tipo (limpieza, fugas, engrase, apriete).</span>
+      </div>
+      <div class="adm-tabla">${filas}</div>
+    </section>`;
+  }).join('');
+  cont.querySelectorAll('textarea[data-k="a"]').forEach(autoAlto);
+  contarAdm();
+}
+function autoAlto(t){ t.style.height = 'auto'; t.style.height = Math.max(40, t.scrollHeight + 2) + 'px'; }
+function contarAdm(){
+  const el = $('#adm-nums'); if (!el) return;
+  const n = ADM.lineas.length, a = ADM.lineas.reduce((s, l) => s + l.filas.length, 0);
+  el.innerHTML = n ? `<span><b>${n}</b> línea${n==1?'':'s'}</span><span><b>${a}</b> actividades</span><span>${esc(ADM.unidad || 'Elige la unidad')} ${esc(ORG[ADM.pais].nombre)}</span>` : '<span>Sube los archivos para ver las actividades</span>';
+}
+function lineaDe(el){ const s = el.closest('.adm-linea'); return s && ADM.lineas.find(l => l.uid === s.dataset.l); }
+function enlazarLineasAdm(){
+  const cont = $('#adm-lineas');
+  cont.addEventListener('input', e => {
+    const l = lineaDe(e.target); if (!l) return;
+    if (e.target.classList.contains('adm-nombre')) { l.nombre = e.target.value.trim(); e.target.classList.remove('bad'); return; }
+    const row = e.target.closest('.adm-row'); if (!row) return;
+    const r = l.filas.find(x => x.id === row.dataset.id); if (!r) return;
+    r[e.target.dataset.k] = e.target.value; e.target.classList.remove('bad');
+    if (e.target.tagName === 'TEXTAREA') autoAlto(e.target);
+  });
+  cont.addEventListener('change', e => {
+    const l = lineaDe(e.target); if (!l) return;
+    if (e.target.dataset.incl != null){ l.archivos[+e.target.dataset.incl].incluir = e.target.checked; procesarLinea(l); pintarLineasAdm(); }
+    if (e.target.classList.contains('adm-nombre')) pintarLineasAdm();
+  });
+  cont.addEventListener('click', e => {
+    const l = lineaDe(e.target); if (!l) return;
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.quitar){ l.undo = JSON.stringify(l.filas); l.filas = l.filas.filter(r => r.id !== b.dataset.quitar); pintarLineasAdm(); return; }
+    if (b.dataset.quitarl){ ADM.lineas = ADM.lineas.filter(x => x !== l); pintarLineasAdm(); return; }
+    if (b.dataset.auto){ juntarAuto(l); pintarLineasAdm(); toast(`Línea ${l.nombre}: quedaron ${l.filas.length} actividades. Revisa los textos.`); return; }
+    if (b.dataset.juntar){
+      const ids = [...b.closest('.adm-linea').querySelectorAll('.adm-chk:checked')].map(c => c.closest('.adm-row').dataset.id);
+      if (ids.length < 2) { toast('Marca al menos 2 actividades para juntarlas'); return; }
+      juntarFilas(l, ids); pintarLineasAdm(); return;
+    }
+    if (b.dataset.undo && l.undo){ l.filas = JSON.parse(l.undo); l.undo = null; pintarLineasAdm(); return; }
+    const mover = (sec, dir) => {
+      const orden = [...new Set(l.filas.map(r => r.s))], i = orden.indexOf(sec), j = i + dir;
+      if (i < 0 || j < 0 || j >= orden.length) return;
+      [orden[i], orden[j]] = [orden[j], orden[i]];
+      l.filas = orden.flatMap(s => l.filas.filter(r => r.s === s)); pintarLineasAdm();
+    };
+    if (b.dataset.up) return mover(b.dataset.up, -1);
+    if (b.dataset.down) return mover(b.dataset.down, 1);
+  });
+}
+
+async function guardarAdm(){
+  if (!ADM.unidad){ $('#adm-unidad').classList.add('bad'); toast('Elige la unidad de negocio'); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  if (!ADM.clave.trim()){ $('#adm-clave').classList.add('bad'); toast('Escribe la clave de administrador'); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  if (!ADM.lineas.length){ toast('Sube los archivos de las OT primero'); return; }
+  const malos = ADM.lineas.filter(l => !l.nombre || !l.filas.some(r => r.a.trim()));
+  if (malos.length){ toast('Cada línea necesita nombre y al menos una actividad'); return; }
+  const nombres = ADM.lineas.map(l => l.nombre.toLowerCase());
+  if (new Set(nombres).size !== nombres.length){ toast('Hay dos líneas con el mismo nombre'); return; }
+  if (!hayServidor()){ toast('Se necesita conexión con el servidor para guardar'); return; }
+  const btn = $('#adm-guardar'); btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    const r = await api('cargarLineas', {
+      clave: ADM.clave.trim(), pais: ORG[ADM.pais].nombre, unidad: ADM.unidad,
+      lineas: ADM.lineas.map(l => ({ linea: l.nombre, actividades: l.filas.filter(x => x.a.trim()).map(x => ({ seccion: x.s, equipo: x.e, actividad: x.a.trim() })) }))
+    });
+    if (r.actividades && r.actividades.length) { store.set(ACT_KEY, r.actividades); aplicarCatalogo(r.actividades); }
+    const pais = ADM.pais, unidad = ADM.unidad, n = ADM.lineas.length;
+    ADM.lineas = [];
+    toast(`${n} línea${n==1?'':'s'} guardada${n==1?'':'s'} en ${unidad}`);
+    ir(`#/${pais}/${encodeURIComponent(unidad)}`);
+  } catch(e){
+    btn.disabled = false; btn.textContent = 'Guardar en la hoja';
+    const m = String(e.message || e);
+    if (/clave/i.test(m)) { $('#adm-clave').classList.add('bad'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    toast(/sin-servidor|fetch|network|failed/i.test(m) ? 'Sin conexión: intenta de nuevo' : m);
+  }
 }
 
 /* ---------- formulario ---------- */
@@ -544,7 +974,7 @@ function vistaFormulario(pais, unidad, linea){
       <div>
         <div class="doc-type">Orden de trabajo · Mantenimiento autónomo</div>
         <h2>Línea ${esc(linea)}</h2>
-        <div class="ut">${esc(unidad)} ${esc(p.nombre)} · UT ${esc(UT[linea]||'')}</div>
+        <div class="ut">${esc(unidad)} ${esc(p.nombre)} ${unidad === 'TUBOACERO' && pais === 'GT' && UT[linea] ? ' · UT ' + esc(UT[linea]) : ''}</div>
       </div>
       <div class="doc-meta"><span>Inspección / Limpieza / Lubricación</span><span>${items.length} actividades</span></div>
     </div>
