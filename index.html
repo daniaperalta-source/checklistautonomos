@@ -232,6 +232,15 @@ tr.hzrow>td{padding:0 12px 14px;background:#FFF1F3;border-bottom:1px solid #E4E4
 .btn.pri:hover{background:#f00025}
 .btn.sec{background:transparent;border:1px solid var(--line2);color:#fff}
 .btn:disabled{opacity:.5;cursor:wait}
+.dock .gav{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.dock .gav small{font-size:11px;color:#71717A;white-space:nowrap}
+.dock .gav small.ok{color:#15803D}
+.dock .gav small.warn{color:#B45309}
+.avance-ban{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#FFF1F2;border:1px solid #FECDD3;border-left:4px solid #DD001F;
+  padding:10px 14px;margin:0 0 12px;font-size:14px;color:#18181B}
+.avance-ban b{color:#DD001F}
+.avance-ban button{margin-left:auto;background:#fff;border:1px solid #18181B;border-radius:4px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.avance-ban button:hover{background:#18181B;color:#fff}
 
 body.form-mode .dock{background:rgba(255,255,255,.97);border-top-color:#D4D4D8}
 body.form-mode .prog .nums{color:#52525B}
@@ -321,7 +330,11 @@ body.form-mode .toast{background:#18181B;color:#fff}
   .grid{grid-template-columns:minmax(0,1fr)}
   .hz{padding:12px}
   .done{grid-template-columns:1fr}
-  .dock-in{padding:10px 14px;gap:10px}
+  .dock-in{padding:10px 14px;gap:10px;flex-wrap:wrap}
+  .dock .prog{flex-basis:100%}
+  .dock .gav{flex:1;align-items:stretch}
+  .dock .gav small{text-align:center}
+  .dock #enviar{flex:1}
   .btn{padding:12px 14px;font-size:17px}
   .tile.line .big{font-size:40px}
 }
@@ -444,6 +457,7 @@ function api(action, payload){
 }
 const PEND_KEY = 'autonomo:pendientes', HIST_KEY = 'autonomo:historial';
 let resumenServidor = null, conectado = null;
+let AVANCES = {};   // avance a medio llenar guardado en el servidor, por línea: "GT|TUBOACERO|633" -> {respondidas,total,operador,actualizado,upd}
 
 function pintarConexion(){
   const el = $('#conn'), pend = store.get(PEND_KEY, []).length;
@@ -470,6 +484,9 @@ async function cargarResumen(){
   if (!hayServidor()) { conectado = false; pintarConexion(); return; }
   try { const r = await api('resumen', {}); resumenServidor = r.checklists || []; conectado = true; }
   catch(e){ conectado = false; }
+  if (conectado) {
+    try { const a = await api('avances', {}); AVANCES = {}; (a.avances || []).forEach(x => AVANCES[x.clave] = x); } catch(e){}
+  }
   pintarConexion();
   if (!RUTA.split('/')[3]) route();   // refresca los mosaicos con lo último
 }
@@ -553,13 +570,18 @@ function vistaLineas(pais, unidad){
   crumbs([{t:p.nombre, h:`#/${pais}`}, {t:unidad, h:`#/${pais}/${encodeURIComponent(unidad)}`}]);
   const tiles = cfg.lineas.map(l => {
     const its = lineItems(`${pais}|${unidad}|${l}`);
-    const u = ultimos(l)[0], draft = store.get(draftKey(pais, unidad, l), null);
-    const avance = draft ? Object.values(draft.resp||{}).filter(r => r.r).length : 0;
+    let draft = store.get(draftKey(pais, unidad, l), null);
+    if (avanceViejo(pais, unidad, l, draft)) { store.del(draftKey(pais, unidad, l)); draft = null; }
+    const u = ultimos(l)[0], sv = AVANCES[`${pais}|${unidad}|${l}`];
+    const local = draft ? Object.values(draft.resp||{}).filter(r => r.r).length : 0;
+    const usaSrv = sv && (sv.upd||0) > ((draft && draft.upd) || 0);
+    const avance = usaSrv ? sv.respondidas : local;
+    const quien = usaSrv && sv.operador ? ` · ${esc(sv.operador)}` : '';
     return `<a class="tile line" href="#/${pais}/${encodeURIComponent(unidad)}/${encodeURIComponent(l)}">
       <span class="big">${esc(l)}</span>
       <span class="meta">${esc(unidad === 'TUBOACERO' && pais === 'GT' ? (UT[l]||'') : '')}</span>
       <span class="meta"><b>${its.length}</b> actividades · frecuencia semanal</span>
-      ${avance ? `<span class="meta">Borrador guardado: <b>${avance}/${its.length}</b> respondidas</span>` : ''}
+      ${avance ? `<span class="meta">Avance guardado: <b>${avance}/${its.length}</b> respondidas${quien}</span>` : ''}
       <span class="last">${u ? `<span>Último: <b>${fmtFecha(u.fechaRevision)}</b></span><span><b>${u.cumplimiento}%</b> · ${u.hallazgos} hallazgo${u.hallazgos==1?'':'s'}</span>` : '<span>Sin registros todavía</span>'}</span>
     </a>`;
   }).join('');
@@ -958,8 +980,10 @@ function vistaFormulario(pais, unidad, linea){
   const key = draftKey(pais, unidad, linea), CK = `${pais}|${unidad}|${linea}`;
   const items = lineItems(CK);
   const base = { meta:{ fecha:hoy(), turno:'', operador:'', supervisor:'', estado:'', alcance:'todas', obsGeneral:'' }, resp:{} };
-  const saved = store.get(key, null);
-  F = { pais, unidad, linea, key, items, st: saved && saved.meta ? saved : base };
+  let saved = store.get(key, null);
+  if (avanceViejo(pais, unidad, linea, saved)) { store.del(key); saved = null; }
+  F = { pais, unidad, linea, key, CK, items, st: saved && saved.meta ? saved : base, tocado: false };
+  F.retomado = !!(saved && saved.meta && saved.upd && Object.values(saved.resp||{}).some(r => r && r.r));   // se abrió con avance guardado
   const m = F.st.meta;
 
   let n = 0;
@@ -970,6 +994,7 @@ function vistaFormulario(pais, unidad, linea){
 
   $('#view').innerHTML = `
   <div class="sheet">
+    <div id="avanceBan"></div>
     <div class="sheet-head">
       <div>
         <div class="doc-type">Orden de trabajo · Mantenimiento autónomo</div>
@@ -1022,6 +1047,7 @@ function vistaFormulario(pais, unidad, linea){
 
   $('#dockSlot').innerHTML = `<div class="dock"><div class="dock-in">
     <div class="prog"><div class="nums" id="nums"></div><div class="track"><i id="bar"></i></div></div>
+    <div class="gav"><button class="btn sec dark" id="guardarSalir" type="button">Guardar avance</button><small id="avEstado"></small></div>
     <button class="btn pri" id="enviar" type="button">Enviar checklist</button>
   </div></div>`;
 
@@ -1029,6 +1055,80 @@ function vistaFormulario(pais, unidad, linea){
   aplicarAlcance();
   enlazarFormulario();
   actualizarProgreso();
+  pintaAvanceBan();
+  traeAvanceServidor();
+}
+
+/* ---------- avance guardado por línea (servidor) ----------
+   Cada cambio se guarda en el teléfono al instante y en el servidor a los pocos segundos.
+   Quien abra la línea después (otro turno u otro teléfono) continúa donde se quedó. */
+const respondidas = () => F.items.filter(i => (F.st.resp[i.id]||{}).r).length;
+function pintaAvanceBan(){
+  const el = document.getElementById('avanceBan'); if (!el || !F) return;
+  const n = respondidas();
+  if (!F.retomado || !n){ el.innerHTML = ''; return; }
+  const d = new Date(F.st.upd), cuando = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  el.innerHTML = `<div class="avance-ban"><span>Continúas un avance guardado: <b>${n}/${F.items.length}</b> respondidas${F.st.meta.operador ? ` por <b>${esc(F.st.meta.operador)}</b>` : ''} · ${cuando}</span>
+    <button type="button" id="avNuevo">Empezar de nuevo</button></div>`;
+  $('#avNuevo').onclick = empezarDeNuevo;
+}
+function estadoAvance(txt, cls){ const e = document.getElementById('avEstado'); if (e){ e.textContent = txt; e.className = cls || ''; } }
+async function traeAvanceServidor(){
+  if (!hayServidor() || !F) return;
+  const yo = F;
+  try {
+    const r = await api('avance', { clave: yo.CK });
+    const a = r.avance;
+    if (!a || F !== yo || yo.tocado) return;
+    if (a.firma !== firma(CAT[yo.CK])) return;                 // cambiaron las actividades de la línea: no se mezcla
+    if ((Number(a.upd)||0) <= (yo.st.upd||0)) return;          // lo del teléfono es igual o más nuevo
+    const st = JSON.parse(a.datos);
+    if (!st || !st.meta) return;
+    store.set(yo.key, st);
+    vistaFormulario(yo.pais, yo.unidad, yo.linea);
+    toast(`Se cargó el avance guardado: ${respondidas()}/${F.items.length} respondidas`);
+  } catch(e){}
+}
+/* El avance de este teléfono ya no sirve si, después de guardarlo, alguien envió completo
+   el checklist de esa línea (el servidor ya no tiene avance y sí tiene un envío más reciente). */
+function avanceViejo(pais, unidad, linea, draft){
+  if (!draft || !conectado || !resumenServidor || AVANCES[`${pais}|${unidad}|${linea}`]) return false;
+  const nom = ORG[pais].nombre, t = draft.upd || 0;
+  return resumenServidor.some(c => c.linea === linea && String(c.unidad).toUpperCase() === unidad && String(c.pais) === nom &&
+                                   Date.parse(c.fechaRegistro) > t);
+}
+let tServidor = null;
+function subirAvance(){
+  clearTimeout(tServidor);
+  if (!F || !hayServidor()) return Promise.resolve(false);
+  const yo = F, n = respondidas();
+  const p = { clave: yo.CK, pais: ORG[yo.pais].nombre, unidad: yo.unidad, linea: yo.linea, respondidas: n, total: yo.items.length,
+              operador: (yo.st.meta.operador||'').trim(), upd: yo.st.upd || Date.now(), firma: firma(CAT[yo.CK]), datos: JSON.stringify(yo.st) };
+  estadoAvance('Guardando avance…');
+  return api('guardarAvance', p).then(() => {
+    AVANCES[yo.CK] = { clave: yo.CK, respondidas: n, total: yo.items.length, operador: p.operador, upd: p.upd };
+    const d = new Date(); estadoAvance(`Avance guardado ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`, 'ok');
+    return true;
+  }).catch(() => { estadoAvance('Guardado solo en este teléfono', 'warn'); return false; });
+}
+async function guardarYSalir(){
+  if (!F) return;
+  clearTimeout(tGuardar); store.set(F.key, F.st);
+  const b = $('#guardarSalir'); b.disabled = true; b.textContent = 'Guardando…';
+  const ok = await subirAvance();
+  const n = respondidas(), tot = F.items.length, l = F.linea;
+  toast(ok ? `Avance guardado (${n}/${tot}). Al volver a la línea ${l} continúas donde te quedaste.`
+           : `Avance guardado en este teléfono (${n}/${tot}). Sin conexión: se sube al servidor cuando vuelvas a abrir la línea con señal.`);
+  ir(`#/${F.pais}/${encodeURIComponent(F.unidad)}`);
+}
+async function empezarDeNuevo(){
+  if (!F || !confirm('¿Borrar el avance guardado de esta línea y empezar el checklist desde cero?')) return;
+  const yo = F;
+  clearTimeout(tGuardar); clearTimeout(tServidor);
+  store.del(yo.key); delete AVANCES[yo.CK];
+  if (hayServidor()) { try { await api('borrarAvance', { clave: yo.CK }); } catch(e){} }
+  vistaFormulario(yo.pais, yo.unidad, yo.linea);
+  toast('Checklist en blanco');
 }
 
 function itemHTML(it, n){
@@ -1086,11 +1186,18 @@ function aplicarRespuesta(id, r, silencioso){
   if (!silencioso){ guardar(); actualizarProgreso(); }
 }
 let tGuardar;
-function guardar(){ clearTimeout(tGuardar); tGuardar = setTimeout(() => store.set(F.key, F.st), 250); }
+function guardar(){
+  if (!F) return;
+  F.st.upd = Date.now(); F.tocado = true;
+  clearTimeout(tGuardar); tGuardar = setTimeout(() => store.set(F.key, F.st), 250);
+  clearTimeout(tServidor); tServidor = setTimeout(subirAvance, 3000);
+  estadoAvance('Cambios sin subir…');
+}
 
 let enlazado = false;
 function enlazarFormulario(){
   $('#enviar').onclick = enviar;
+  $('#guardarSalir').onclick = guardarYSalir;
   if (enlazado) return; enlazado = true;
   const v = $('#view');
   v.addEventListener('click', e => {
@@ -1218,6 +1325,8 @@ async function enviar(){
   }
   const btn = $('#enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
   const envio = construirEnvio();
+  envio.avanceClave = F.CK;
+  clearTimeout(tServidor); delete AVANCES[F.CK];
   const h = store.get(HIST_KEY, []);
   h.unshift({ id:envio.checklist.id, linea:F.linea, fechaRevision:envio.checklist.fechaRevision, fechaRegistro:envio.checklist.fechaRegistro, cumplimiento:envio.checklist.cumplimiento, hallazgos:envio.checklist.hallazgos, enviado:false });
   store.set(HIST_KEY, h.slice(0,80));
